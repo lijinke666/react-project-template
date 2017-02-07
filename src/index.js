@@ -13,10 +13,6 @@ import Home from "./Home"
 import reducer from "./reducer"
 const store = createStore(reducer);
 
-console.log(store, '======');
-
-window.store = store
-
 ReactDOM.render(
     <Provider store={store}>
         <Router history={ hashHistory }>
