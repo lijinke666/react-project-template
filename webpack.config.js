@@ -57,7 +57,7 @@ module.exports = {
         //     'css-loader?sourceMap!' +
         //     'less-loader?sourceMap'
         // )
-        loader:'less-loader?sourceMap'
+        loader:'style-loader!css-loader!less-loader'
       },
       {
         test:/\.css$/,
