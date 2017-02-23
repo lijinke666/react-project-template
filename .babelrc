@@ -1,6 +1,19 @@
 {
-  "presets": [
-    ["es2015", {"modules": false}],
+  "presets": [         //转码规则
+    // ["env", {
+    //   "targets": {
+    //     "browsers": ["last 2 versions"]
+    //   },
+    //   "modules": false,
+    //   "loose": true,
+    //   "useBuiltIns": true
+    // }],
     "react"
+  ],
+  "plugins": [
+    "transform-decorators-legacy",
+    "transform-object-rest-spread",
+    "transform-class-properties",
+    "react-hot-loader/babel"      //热跟新
   ]
 }

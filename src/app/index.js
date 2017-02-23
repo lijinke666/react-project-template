@@ -1,17 +1,11 @@
 import React from 'react'
-import {Link} from 'react-router'
+import { Router, Route, browserHistory, IndexRoute } from "react-router"
+import Routes from "libs/routes"
 
-export default class App extends React.Component{
-  constructor(props){
-    super(props)
-  }
-  render(){
-      return (
-        <div>
-          <Link to="/home" activeStyle={{color:'red'}}>首页</Link>
-          <Link to="/about" activeStyle={{color:'red'}}>关于我们</Link>
-          <section>{this.props.children}</section>
-        </div>
-      )
+export default class App extends React.Component {
+    render() {
+        return (
+            <Router history={browserHistory} routes={Routes} />
+        )
     }
 }

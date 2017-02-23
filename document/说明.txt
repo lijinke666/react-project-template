@@ -1,0 +1,19 @@
+1.src  程序入口  src/index.js
+2.app/components   放一般的组件
+3.shared/components  放公用的组件
+4.shared/libs/routes.js   项目路由配置
+5.shared/styles    项目公用less
+6.src/home   项目首页
+6.images   图片
+7.fonts  字体
+8.document  文档
+
+
+#start
+#npm install
+或者
+#yarn
+
+然后
+#运行 npm start
+#打包 npm run build

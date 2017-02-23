@@ -1,31 +1,29 @@
 import React from "react"
 import ReactDOM from "react-dom"
-import {AppContainer} from "react-hot-loader"
+import { AppContainer as HotLoader } from "react-hot-loader"     //react-hot-loader  热更新可以保存状态  
 
-import {createStore} from "redux"
-import {Provider} from "react-redux"
-import {Router, Route,hashHistory,IndexRoute} from "react-router"
+import { createStore } from "redux"
+import { Provider } from "react-redux"
 
-import App from "./app"
-import About from "./app/components/About"
-import Home from "./Home"
+import App from "app"
 
 import reducer from "./reducer"
 const store = createStore(reducer);
 
-ReactDOM.render(
-    <Provider store={store}>
-        <Router history={ hashHistory }>
-          <Route path="/" component={App}>        //将所有组件放在App容器中
-              <IndexRoute component={Home}/>      //默认加载Home路由
-              <Route path="/about" component={About}/>    //访问about  加载对应的about的组件
-              <Route path="/home" component={Home}/>
-          </Route>
-        </Router>
-    </Provider>,
-    document.getElementById('root')
-)
-
+const render = ( Component ) => {
+    ReactDOM.render(
+        <HotLoader>
+            <Provider store={store}>
+                <Component/>
+            </Provider>
+        </HotLoader>,
+        document.getElementById('root')
+    )
+}
+render(App)
+//webpack内置对象
 if (module.hot) {
-    module.hot.accept();
+    module.hot.accept("app", () => {
+        render(App)
+    });
 }
