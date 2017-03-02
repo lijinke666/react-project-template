@@ -1,6 +1,6 @@
 # React-Redux-Webpack
-### 知识的掌握不要 在嘴上说说，而要动手敲###
+### 知识的掌握不要 在嘴上说说，而要动手敲
 
-### npm install
-### npm start
-### npm run build
+- 安装依赖 `npm install`
+- 跑起来 `npm start`
+- 打包 `npm run build`
