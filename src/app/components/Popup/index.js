@@ -4,10 +4,10 @@ import {connect} from 'react-redux'
 import "./styles.less"
 
 //redux的第二种写法
-// const {isShow} = this.state
+// const {PopupAction} = this.state      PopupAction 里面就有当前组件的的reducer里面的所有对象
 @connect(
-  ({isShow})=>({
-    isShow:isShow
+  ({ PopupAction })=>({
+    isShow:PopupAction.isShow
   })
 )
 
@@ -17,11 +17,11 @@ export default class Popup extends React.Component{
   }
   render(){
       const {width,height,text,isShow} = this.props
+
       const styles = {
         width,
         height
       }
-      console.log(isShow)
       return (
         <div>
         {

@@ -6,9 +6,9 @@ import React from "react"
 import { connect } from "react-redux"
 
 @connect(
-  ({size,color})=>({                 //这里箭头函数 {}  会当成一个表达式  但是我们要对象 所以加个括号
-      size:size,
-      color:color
+  ({ InputAction })=>({                 //这里箭头函数 {}  会当成一个表达式  但是我们要对象 所以加个括号
+    size:InputAction.size,
+    color:InputAction.color
   }),
   (dispatch)=>({
         //dispath type字段必须  payload 就是携带的信息

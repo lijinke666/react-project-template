@@ -7,9 +7,9 @@ import {connect} from "react-redux"
 import './styles.less'
 
 @connect(
-  ({size,color})=>({                 //这里箭头函数 {}  会当成一个表达式  但是我们要对象 所以加个括号
-      size:size,
-      color:color
+    ({ InputAction })=>({                 //这里箭头函数 {}  会当成一个表达式  但是我们要对象 所以加个括号
+        size: InputAction.size,
+        color: InputAction.color
   })
 )
 
@@ -20,11 +20,12 @@ export default class RotateBox extends React.Component{
     render(){
         //这里的size,color  Input组件displath 当前的值 通过reducer返回新的状态  redux让每个组件状态可以获取到
         const {size,color} = this.props
+        console.log(size,color);
         const outerBorderStyle = {"width":size,"height":size};
         const innerBorderStyle = Object.assign({"borderColor":color},outerBorderStyle);
 
         return(
-            <div className="rotateMain" onMouseOver={this.onMouseOver}  onMouseMove={ this.onMouseMove } onMouseLeave={ this.onMouseLeave }>
+            <div className="rotateMain" keys="rotate" onMouseOver={this.onMouseOver}  onMouseMove={ this.onMouseMove } onMouseLeave={ this.onMouseLeave }>
                 <section className="rotateBox" style={outerBorderStyle} >
                     <div style={innerBorderStyle}></div>
                     <div style={innerBorderStyle}></div>

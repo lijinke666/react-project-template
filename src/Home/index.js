@@ -8,11 +8,11 @@ export default class Home extends React.Component {
     return (
       <div>
         <h2>首页</h2>
-        <p>
-          <Link to="/about">关于我们</Link>
-          <br/>
-          <Link to="/game">游戏</Link>
-        </p>
+        <ol>
+           <li><Link to="/about">关于我们</Link></li>
+           <li><Link to="/game">游戏</Link></li>
+           <li><Link to="/music">音乐</Link></li>
+        </ol>
         <img src={testImage} />
       </div>
     )
