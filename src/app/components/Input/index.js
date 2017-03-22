@@ -34,7 +34,7 @@ export default class Input extends React.Component {
   render() {
     const {size, onSizeChange, onColorChange, color} = this.props;
     return (
-      <div className="index">
+      <div className="index" key="Input">
         <h2>当前大小 {size}</h2>
         <input type="range" onChange={onSizeChange} value={size} placeholder="请输入大小" step="0.01" max="1000" min="100" />
         <h2>当前颜色 {color}</h2>
