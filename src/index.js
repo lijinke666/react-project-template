@@ -3,6 +3,7 @@ import ReactDOM from "react-dom"
 import { AppContainer as HotLoader } from "react-hot-loader"     //react-hot-loader  热更新可以保存状态  
 
 import { createStore, applyMiddleware } from "redux"
+import thunk from "redux-thunk"
 import { Provider } from "react-redux"
 
 import App from "app"
@@ -10,7 +11,7 @@ import App from "app"
 import reducer from "./reducer"
 const store = createStore(
     reducer,
-    applyMiddleware()
+    applyMiddleware(thunk)
 );
 
 const render = ( Component ) => {

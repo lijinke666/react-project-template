@@ -1,15 +1,18 @@
 const helper = {
-  host:"http://192.168.35.98",
-  port:"6666",
+  host:"http://localhost",
+  port:"8000",
   async getJson(url) {
     return await fetch(url)
   },
   async postJson(url){
-    return await fetch(url,{
+    let data = (await fetch(url,{
       method:"POST",
-      mode: "no-cors",
-      headers: { "Content-type": "application/json;charset=UTF-8" }
-    })
+      mode: "cors",
+      headers: { //自动添加
+        // 'Content-Type': 'application/json; charset=utf-8'
+      }
+    })).json();
+    return data;
   }
 }
 export default helper

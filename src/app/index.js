@@ -15,7 +15,8 @@ export default class App extends React.Component {
                     <Route path="/home" component={Home} />
                     <Route path="/about" component={About} />
                     <Route path="/game" component={Game} />
-                    <Route path="/music" component={Music}/>>
+                    <Route path="/music" component={Music}/>
+                    <Route path="/musicDetail/:id" component={Game}/>>
                 </Route>
             </Router>
         )

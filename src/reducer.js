@@ -1,5 +1,5 @@
 import InputAction from "app/components/Input/reducer"
-import PopupAction from "app/components/Popup/reducer"
+import AboutAction from "app/components/About/reducer"
 import MusicAction from "app/components/Music/reducer"
 
 import { combineReducers } from "redux"     //reducer的合并
@@ -7,7 +7,7 @@ import { combineReducers } from "redux"     //reducer的合并
 
 const chatReducer = combineReducers({
   InputAction,
-  PopupAction,
+  AboutAction,
   MusicAction     
 })
 

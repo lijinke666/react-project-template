@@ -7,13 +7,14 @@ import "./styles.less"
 //修饰器  Decorator
 //只能写到类的上面 找最近的一个类。。。。
 @connect(
-  ({isShow})=>({              // 接受一个新的全局状态  然后返回到当前组件 告诉当前组件跟新
-    isShow:isShow             // {isShow} = this.state;
+  ({ AboutAction})=>({              // 接受一个新的全局状态  然后返回到当前组件 告诉当前组件跟新
+    isShow:AboutAction.isShow             // {isShow} = this.state;
   }),
   ( dispatch ) =>({            //绑定当前组件的一些事件 发送dispatch 通知  reducer接受到type 做出相应的处理
-    onBtnClick:()=>{           //相当于是 this.props.onBtnClick   
+    onBtnClick:(isShow)=>{           //相当于是 this.props.onBtnClick   
       dispatch({
-            type:"showPopup"
+            type:"showPopup",
+            isShow:isShow
         }) 
     }
   })
@@ -27,16 +28,17 @@ export default class About extends React.Component{
     history.back()
   }
   render(){
-      const {onBtnClick} = this.props;
+      const {onBtnClick,isShow} = this.props;
       return (
         <div>
           <h2>关于我们</h2>
           <Link to="" onClick={this.onGoBack}>返回</Link>
-          <button onClick= {onBtnClick}>dispatch通知显示弹窗组件</button>
+          <button onClick= { ()=> onBtnClick(isShow)}>dispatch通知显示弹窗组件</button>
           <Popup
             width={200}
             height={200}
             text="redux练习"
+            isShow={isShow}
           />
         </div>
 
