@@ -1,49 +1,52 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from "redux"     //绑定action的函数
+import { getMusicData } from "./action"
+import {Link} from "react-router"
 
 @connect(
-  ({ MusicAction }) => ({
-    musicData: MusicAction.musicData
+  ({MusicAction}) => ({
+     data:MusicAction.musicData
   }),
-  (dispatch) => ({
-    getMusicData: () => {
-      dispatch({
-        type: "getMusicData"
-      })
-    }
-  })
+  (dispatch) => (
+    bindActionCreators({
+      getMusicData
+    }, dispatch)
+  )
 )
 export default class Music extends React.Component {
   constructor(props) {
     super(props)
   }
   render() {
-    const {musicData} = this.props;
-    console.log(musicData);
+    const { data } = this.props;
     return (
       <div className="music-root" key="music">
-        {/*<table key="tabel">
-          {
-            musicData.map(item => {
-              let { id, name, category, fans } = item
-              return (
-                <tr key={id}>
-                  <td>id:{id}</td>
-                  <td>姓名：{name}</td>
-                  <td>分类：{category}</td>
-                  <td>粉丝：{fans}</td>
-                  <td><a href={`/musicDetail/${id}`}>详情</a></td>
-                </tr>
-              )
-            })
-          }
-        </table>*/}
+        {
+          data.length>0
+            ? <table key="table">
+              {
+                data.map(item => {
+                  let { id, name, category, fans } = item
+                  return (
+                    <tr key={id}>
+                      <td>id:{id}</td>
+                      <td>姓名：{name}</td>
+                      <td>分类：{category}</td>
+                      <td>粉丝：{fans}</td>
+                      <td><Link to={`music/${id}`}>查看歌曲信息</Link></td>
+                    </tr>
+                  )
+                })
+              }
+            </table>
+            : <p>加载中。。。</p>
+        }
       </div>
     )
   }
   componentWillMount() {
-    const { getMusicData } = this.props;
-    getMusicData();
+    this.props.getMusicData();
   }
 
 };

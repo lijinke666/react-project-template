@@ -1,19 +1,19 @@
 {
-  "presets": [         //转码规则
-    // ["env", {
-    //   "targets": {
-    //     "browsers": ["last 2 versions"]
-    //   },
-    //   "modules": false,
-    //   "loose": true,
-    //   "useBuiltIns": true
-    // }],
+  "presets": [         
+    [
+      "es2015",
+      {
+        "modules": false
+      }
+    ],
     "react"
   ],
   "plugins": [
+    "transform-async-to-generator",     //支持async写法
     "transform-decorators-legacy",
     "transform-object-rest-spread",
     "transform-class-properties",
+    "transform-runtime",
     "react-hot-loader/babel"      //热跟新
   ]
 }

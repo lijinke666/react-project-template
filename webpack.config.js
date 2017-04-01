@@ -7,7 +7,7 @@ const OpenBrowserPlugin = require('open-browser-webpack-plugin')   //打包完�
 const CopyWebpackPlugin = require('copy-webpack-plugin')           //拷贝文件  当有第三方依赖可以copy到打包文件夹中
 const autoprefixer = require('autoprefixer')                       //自动加前缀
 const CptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin') //压缩css
-
+const ImageminPlugin = require('imagemin-webpack-plugin').default         //压缩图片
 const HOST = "localhost"             //IP
 const PORT = 1996                    //端口
 
@@ -172,18 +172,28 @@ module.exports = (env) => {
                 "process.env.NODE_ENV": JSON.stringify("PROD"),
                 __DEBUG__: false,
             }),
-            // new webpack.optimize.UglifyJsPlugin({                                //压缩
-            //     compress: {
-            //         warnings: false
-            //     }
-            // }),
+            new webpack.optimize.UglifyJsPlugin({                                //压缩
+                compress: {
+                    warnings: false
+                }
+            }),
             new ExtractTextPlugin({                // 将打包文件中的css分离成一个单独的css文件
                 filename: 'css/app.[contenthash:8].css',
                 allChunks: true
             }),
-            //github搜的这个插件有问题：（
+            new webpack.optimize.CommonsChunkPlugin({
+                names:['pulic'],
+                filename:"js/pulic.[chunkhash:8].js"
+            }),
+            new ImageminPlugin({
+                disable:false,
+                optipng:{
+                    optimizationLevel:3
+                }
+            }),
             new CptimizeCssAssetsPlugin({          //压缩css  与 ExtractTextPlugin 配合使用
-                assetNameRegExp:/\.min\.css/g,     //压缩之后的名字,
+                // assetNameRegExp:/\.css/g,     //匹配规则,
+                cssProcessor: require('cssnano'),
                 cssProcessorOptions:{discardComments:{removeAll: true }}, //移除所有注释
                 canPrint:true        //是否向控制台打印消息
             })

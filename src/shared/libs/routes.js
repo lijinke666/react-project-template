@@ -1,15 +1,40 @@
-import {Route, IndexRoute } from "react-router"
 import Root from "app/components/Root"
 import About from "app/components/About"
 import Game from "app/components/Game"
+import Music from "app/components/Music"
 import Home from "home"
+import MusicDetail from "app/components/MusicDetail"
 
-const routes =  <Route path="/" component={Root}>
-        <IndexRoute component={Home}/>
-        <Route path="/home" component={Home} />
-        <Route path="/about" component={About} />
-        <Route path="/game" component={Game} />
-    </Route>;
-
-
-export default routes
+export default {
+    path: "/",
+    component: Root,
+    indexRoute: {
+        component: Home
+    },
+    childRoutes: [
+        {
+            path:"home",
+            component:Home
+        },
+        {
+            path: "about",
+            getComponent(location, cb) {
+                System.import('app/components/About')
+                    .then((module) => cb(null, module.default))
+                    .catch(err => console.log('aaa',err))
+            }
+        },
+        {
+            path: "game",
+            component: Game
+        },
+        {
+            path: "music",
+            component: Music
+        },
+        {
+            path:"music/:id",
+            component: MusicDetail
+        }
+    ]
+}
