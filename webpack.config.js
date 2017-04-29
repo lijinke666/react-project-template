@@ -81,8 +81,8 @@ module.exports = (env) => {
                             { loader: "less-loader", options: { sourceMap: true } }
                         ]
                         : ExtractTextPlugin.extract({        //生产环境 把css单独分离出来
-                            fallbackLoader: "style-loader",
-                            loader: [
+                            fallback: "style-loader",
+                            use: [
                                 "css-loader",
                                 "postcss-loader",
                                 {
@@ -103,8 +103,8 @@ module.exports = (env) => {
                             { loader: "postcss-loader" }
                         ]
                         : ExtractTextPlugin.extract({
-                            fallbackLoader: "style-loader",
-                            loader: [
+                            fallback: "style-loader",
+                            use: [
                                 "css-loader",
                                 "postcss-loader",
                                 {
@@ -181,10 +181,10 @@ module.exports = (env) => {
                 filename: 'css/app.[contenthash:8].css',
                 allChunks: true
             }),
-            new webpack.optimize.CommonsChunkPlugin({
-                names:['pulic'],
-                filename:"js/pulic.[chunkhash:8].js"
-            }),
+            // new webpack.optimize.CommonsChunkPlugin({
+            //     names:['pulic'],
+            //     filename:"js/pulic.[chunkhash:8].js"
+            // }),
             new ImageminPlugin({
                 disable:false,
                 optipng:{
