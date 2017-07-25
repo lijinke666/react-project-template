@@ -1,7 +1,17 @@
 import React from "react"
-//将所有组件包裹起来  react-router 会根据对应路由加载对应组件
-export default class Root extends React.Component {
+
+export default class Root extends React.PureComponent {
+  constructor(props) {
+    super(props)
+  }
   render() {
-    return this.props.children
+    return (
+      <div>
+        {this.props.children}
+      </div>
+    )
+  }
+  componentDidMount() {
+    console.log('这个是母版,不会被刷新')
   }
 }

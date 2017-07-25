@@ -1,0 +1,63 @@
+@import "~styles/vars.less";
+@import "~styles/mixin.less";
+.btn{
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: 500;
+    text-align: center;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    line-height: 1.5;
+    padding: 10px 30px;
+    font-size: 12px;
+    height: 38px;
+    user-select: none;
+    transition: all .3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    position: relative;
+    color: rgba(0,0,0,.65);
+    background-color: #fff;
+    border-color: @border-color;
+    outline: none;
+    .btn-hover(@default-color);
+    &.btn-primary{
+        .btn-hover(@primary-color)
+    }
+    &.btn-default{
+        color:rgba(0,0,0,.65);
+        background-color: #fff;
+        border:1px solid @default-color;
+        &:hover,&:active{
+            border:1px solid @primary-color
+        }
+    }
+    &.btn-warning{
+        .btn-hover(@warning-color)
+    }
+    &.btn-error{
+        .btn-hover(@error-color)
+    }
+    &.btn-success{
+        .btn-hover(@success-color)
+    }
+    &.btn-orange{
+        .btn-hover(@orange-color)
+    }
+    &.btn-info{
+        .btn-hover(@info-color)
+    }
+    &.btn-disabled{
+        .btn-hover(@disabled-color);
+        pointer-events: none;
+        cursor:no-drop;
+        border-style:dashed;
+        color: rgba(0,0,0,.25);
+        border-color: #d9d9d9;
+    }
+    &.btn-block{
+        width:100%;
+        display: block
+    }
+}

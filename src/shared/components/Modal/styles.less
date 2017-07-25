@@ -1,0 +1,83 @@
+@import "~styles/mixin.less";
+@import "~styles/vars.less";
+.jinke-modal-mask{
+    .center();
+    position: fixed;
+    background-color: rgba(0,0,0,.5);
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    z-index: 88;
+    transform: scale(0);
+    transition: opacity .3s cubic-bezier(.29,.32,.36,.78);
+    pointer-events: none;
+    &.modal-animate{
+        transform: scale(1);
+        pointer-events:auto;
+        .jinke-modal{
+            animation: modalAnimate .35s ease forwards;
+        }
+    }
+    .jinke-modal{
+        pointer-events: auto;
+        box-shadow: 1px 1px 50px rgba(0,0,0,.3);
+        background-color: #fff;
+        border-radius: 10px;
+        min-width: 300px;
+        min-height: 200px;
+        max-width: 90%;
+        max-height: 90%;
+        z-index:77;
+        transform-origin: bottom center;
+        .modal-header{
+            height: 40px;
+            padding: 0 10px;
+            border-bottom:1px solid @border-color;
+            line-height: 40px;
+            text-align: center;
+            position: relative;
+            h2.title{
+                font-size: 14px;
+                color:#444;
+                margin:0;   
+            }
+            .modal-close-btn{
+                position: absolute;
+                right:20px;
+                top:0;
+                cursor: pointer;
+                i{
+                    color:#333333;
+                }
+            }
+        }
+        .modal-content{
+            padding: 10px 20px;
+            height: auto;
+            overflow-y: auto;
+            margin: 0 auto;
+            max-height: calc(~"100vh - @{header-height} - @{music-player-height} - 50px")
+        }
+        .modal-footer{
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            align-content: center;
+            justify-content: space-around;
+            .jinke-btn{
+                flex-basis: 45%;
+            }
+        }
+    }
+}
+@keyframes modalAnimate{
+    from {
+        opacity: 0;
+        transform: translate3d(0,-100px,0);
+    }
+    to{
+        opacity: 1;
+        transform: scale(1) translate3d(0,0,0); 
+    }
+}
