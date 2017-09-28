@@ -4,13 +4,14 @@
  * @Last Modified by:   jinke.li 
  * @Last Modified time: 2017-07-17 19:41:27 
  */
-import React, { PropTypes } from "react"
+import React, { PureComponent } from "react"
+import PropTypes from "prop-types"
 import ReactDOM from "react-dom"
 import classNames from "classnames"
 import Button from "shared/components/Button"
 import "./styles.less"
 
-export default class Modal extends React.PureComponent {
+export default class Modal extends PureComponent {
     static defaultProps = {
         title: "标题",
         onOk: () => { },

@@ -4,12 +4,13 @@
  * @Last Modified by:   jinke.li 
  * @Last Modified time: 2017-07-17 19:41:57 
  */
-import React, { PropTypes } from "react"
+import React, { PureComponent } from "react"
+import PropTypes from "prop-types"
 import ReactDOM from "react-dom"
 import classNames from "classnames"
 import "./styles.less"
 
-export default class Button extends React.PureComponent {
+export default class Button extends PureComponent {
     static defaultProps = {
         type: "default",
         htmlType: "button"

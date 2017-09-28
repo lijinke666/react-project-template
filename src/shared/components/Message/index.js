@@ -4,12 +4,13 @@
  * @Last Modified by: jinke.li
  * @Last Modified time: 2017-05-12 14:19:52
  */
-import React, { propTypes } from "react"
+import React, { PureComponent } from "react"
+import PropTypes from "prop-types"
 import ReactDOM from "react-dom"
 import classNames from "classnames"
 import "./styles.less"
 
-export default class Message extends React.PureComponent {
+export default class Message extends PureComponent {
     state = {
         remove: false
     }
