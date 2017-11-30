@@ -1,5 +1,5 @@
 # react-project-template
-react+redux+ES6+webpack2.X(3.x) 项目模板,支持按需加载
+react+redux+ES6+webpack2.X 项目模板,支持按需加载
 
 > 也许你不想要脚手架,只是需要一个舒服的项目模板,如果你不喜欢脚手架,可以试试这个 :)
 > 文件目录 参考 之前公司架构师 `seth` 大牛
@@ -74,4 +74,3 @@ react+redux+ES6+webpack2.X(3.x) 项目模板,支持按需加载
     - [yarn.lock           yarn 锁文件](#yarnlock-----------yarn-锁文件)
 
 <!-- /TOC -->
-
