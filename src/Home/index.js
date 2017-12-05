@@ -1,6 +1,8 @@
 import React, { PureComponent, Fragment } from 'react'
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
+import { Divider, Button, message } from "antd"
+
 import getMyName from "./action"
 import "./styles.less"
 
@@ -24,6 +26,10 @@ export default class Home extends PureComponent {
   state = {
     loading: false
   }
+  goGithub = () => {
+    message.info('谢谢!')
+    location.href = "https://github.com/lijinke666"
+  }
   render() {
     const { loading } = this.state
     const { name } = this.props               //通过 react-redux connect 之后 props 里面有 name 这个属性
@@ -32,19 +38,15 @@ export default class Home extends PureComponent {
         <div key="home" className="home">
           {
             loading
-            ? <h2>loading...</h2>
-            : <Fragment>
+              ? <Spin tip="Loading..."></Spin>
+              : <Fragment>
                 <h2>Hello my name is <strong className="name">{name}</strong></h2>
                 <span>:)</span>
               </Fragment>
           }
-          <p>
-            Github : <a href="https://github.com/lijinke666" target="_blank">star我</a>
-          </p>
+          <Button type="primary" onClick={this.goGithub}>Github</Button>
         </div>
-        <p className="project-name">
-          react-project-template
-        </p>
+        <Divider>react-project-template</Divider>
       </Fragment>
     )
   }

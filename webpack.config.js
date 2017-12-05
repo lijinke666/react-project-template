@@ -36,7 +36,7 @@ module.exports = (env) => {
             inline: true,         //iframe 模式
             historyApiFallback: true,    //浏览器 history
             stats: {              //统计
-                color: true,      //输出有颜色的信息
+                colors: true,      //输出有颜色的信息
                 errors: true,     //显示错误信息
                 version: true,    //显示版本号
                 warnings: true,   //显示警告
