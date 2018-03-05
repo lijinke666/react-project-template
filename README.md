@@ -1,11 +1,10 @@
 # react-project-template
-react+redux+ES6+webpack3.X 项目模板,支持按需加载
+react+redux+ES6+webpack3.X 项目模板,支持按需加载 <br/>
 by Dawdler [https://github.com/lijinke666/dawdler](https://github.com/lijinke666/dawdler)
 Have Fun ! 
 
 > 文件目录 参考 之前公司架构师 `seth` 大牛
 
----
 
 #### 基本的 npm scripts
 
