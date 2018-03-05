@@ -1,7 +1,8 @@
 # react-project-template
 react+redux+ES6+webpack3.X 项目模板,支持按需加载
+by Dawdler [https://github.com/lijinke666/dawdler](https://github.com/lijinke666/dawdler)
+Have Fun ! 
 
-> 也许你不想要脚手架,只是需要一个舒服的项目模板,可以试试这个 :)
 > 文件目录 参考 之前公司架构师 `seth` 大牛
 
 ---

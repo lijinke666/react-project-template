@@ -1,7 +1,7 @@
 {
-  "name": "react-project-template",
+  "name": "dawdler",
   "version": "1.2.0",
-  "description": "react project template",
+  "description": "react project template By:dawdler",
   "private": true,
   "main": "src/index.js",
   "scripts": {
@@ -16,6 +16,7 @@
     "url": "https://github.com/lijinke666/React-Project-Template.git"
   },
   "keywords": [
+    "dawdler",
     "webpack",
     "webpack2",
     "webpack3",

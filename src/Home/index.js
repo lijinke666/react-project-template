@@ -1,7 +1,7 @@
 import React, { PureComponent, Fragment } from 'react'
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
-import { Divider, Button, message } from "antd"
+import { Divider, Button, message,Spin } from "antd"
 
 import getMyName from "./action"
 import "./styles.less"
@@ -27,8 +27,8 @@ export default class Home extends PureComponent {
     loading: false
   }
   goGithub = () => {
-    message.info('谢谢!')
-    location.href = "https://github.com/lijinke666"
+    message.info('Thank you!')
+    location.href = "https://github.com/lijinke666/dawdler"
   }
   render() {
     const { loading } = this.state
@@ -38,22 +38,21 @@ export default class Home extends PureComponent {
         <div key="home" className="home">
           {
             loading
-              ? <Spin tip="Loading..."></Spin>
+              ? <h2><Spin tip="Loading..."></Spin></h2>
               : <Fragment>
                 <h2>Hello my name is <strong className="name">{name}</strong></h2>
-                <span>:)</span>
               </Fragment>
           }
           <Button type="primary" onClick={this.goGithub}>Github</Button>
         </div>
-        <Divider>react-project-template</Divider>
+        <Divider>react-project-template By:<a href="https://github.com/lijinke666/dawdler" target="_blank">Dawdler</a></Divider>
       </Fragment>
     )
   }
   componentDidMount() {
     this.setState({ loading: true }, () => {
       setTimeout(() => {
-        this.props.getMyName('李金珂')
+        this.props.getMyName('Dawdler')
         this.setState({ loading: false })
       }, 1000)
     })

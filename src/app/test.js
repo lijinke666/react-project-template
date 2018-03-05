@@ -10,7 +10,7 @@ export default class Test extends React.PureComponent {
   render() {
     return (
       <div>
-        <Button type="primary">李金珂真帅!</Button>
+        <Button type="primary">Dawdler!</Button>
       </div>
     )
   }
