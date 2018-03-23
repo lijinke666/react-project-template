@@ -1,8 +1,8 @@
 /*
  * @Author: jinke.li 
  * @Date: 2017-05-03 16:32:21 
- * @Last Modified by: jinke.li
- * @Last Modified time: 2017-06-02 11:50:06
+ * @Last Modified by: Jinke.Li
+ * @Last Modified time: 2018-03-23 15:32:51
  */
 const path = require('path')
 const webpack = require('webpack')
@@ -16,14 +16,16 @@ const ImageminPlugin = require('imagemin-webpack-plugin').default         //压�
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')       //生成打包图
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');            //webpack3 单独分离出来了这个压缩的
 const AddStaticCachePlugin = require('add-static-cache-webpack-plugin')      //自己写的 写入缓存插件
+const ManifestPlugin = require('webpack-manifest-plugin')
 
 const { host, dev_port } = require("./config")
 
 module.exports = (env) => {
     //env 是npm script 运行webpack时传进来的  判断是否是开发环境
-    const mode = (env && env.mode) || "DEV"
+    const mode = (env && env.mode) || "development"
 
     const options = {
+        mode:mode,
         //开发工具
         devtool: mode === "DEV" ? "source-map" : false,
 
@@ -62,10 +64,10 @@ module.exports = (env) => {
             path: path.resolve(__dirname, "dist"),
             filename: mode === "DEV"
                 ? "js/[name].js"
-                : "js/[name].[chunkhash:8].js",
+                : "js/[name].[hash:8].js",
             chunkFilename: mode === "DEV"
                 ? "js/[name]Chunk.js"
-                : "js/[name]Chunk.[chunkhash:8].js",
+                : "js/[name]Chunk.[hash:8].js",
             publicPath: mode === "DEV"
                 ? `${host}:${dev_port}/`
                 : "/"
@@ -162,6 +164,20 @@ module.exports = (env) => {
             ],
         },
 
+        //webpack4 相关升级配置
+        optimization: {      
+            //压缩                          
+            minimize:true,      
+            //代码分割
+            splitChunks: {
+                chunks: 'all',
+                name: 'common',
+            },
+            runtimeChunk: {
+                name: 'runtime',
+            }
+        },
+
         //插件
         plugins: []
     }
@@ -189,63 +205,55 @@ module.exports = (env) => {
                 "process.env.NODE_ENV": JSON.stringify("production"),
                 __DEBUG__: false,
             }),
-            new UglifyJSPlugin({                                //压缩
-                output: {
-                    comments: false //移除所有注释
-                },
-                compress: {
-                    warnings: false
-                }
-            }),
             new ExtractTextPlugin({                // 将打包文件中的css分离成一个单独的css文件
                 filename: 'css/app.[contenthash:8].css',
                 allChunks: true
             }),
-            //[1]
-            //找到所有node_modules的依赖包  分离出来
-            // /axios/ 没有用到的模块
-            new webpack.optimize.CommonsChunkPlugin({
-                name: "app",
-                async: "common-in-lazy",
-                children: true,
-                minChunks: ({ resource } = {}) => (
-                    resource &&
-                    resource.includes('node_modules') &&
-                    /axios/.test(resource)
-                )
-            }),
-            // [2]
-            //找到模块次数使用两次的  分离出来
-            //单独打成used-twice.js 减少包的体积
-            /**
-             * 升级到 v2.6 貌似async不起作用  article admin detail 都使用了但是moment都打包进了对应的chunk文件
-             * 导致文件增大了600kb
-             * 经过github上的提问 各路大神的帮助下  解决了上面这个问题 需要设置name!!!!!!!!!!!
-             */
-            new webpack.optimize.CommonsChunkPlugin({
-                name: "app",
-                children: true,
-                async: 'used-twice',
-                minChunks: (module, count) => (
-                    count >= 2
-                ),
-            }),
-            //[3]
-            //[1][2][3] 是按需加载 大幅减少打包js体积的关键
-            //遍历node_modules目录 以.js结尾 一道vender chunk
-            //自动化分离第三方依赖
-            new webpack.optimize.CommonsChunkPlugin({
-                name: 'app',
-                filename: "js/common.[chunkhash:8].js",
-                minChunks: ({ resource }) => (
-                    resource &&
-                    resource.indexOf('node_modules') >= 0 &&
-                    resource.match(/\.js$/)
-                )
-            }),
-            new webpack.optimize.CommonsChunkPlugin({
-                name:['manifast']
-            }),
+            // //[1]
+            // //找到所有node_modules的依赖包  分离出来
+            // // /axios/ 没有用到的模块
+            // new webpack.optimize.splitChunks({
+            //     name: "app",
+            //     async: "common-in-lazy",
+            //     children: true,
+            //     minChunks: ({ resource } = {}) => (
+            //         resource &&
+            //         resource.includes('node_modules') &&
+            //         /axios/.test(resource)
+            //     )
+            // }),
+            // // [2]
+            // //找到模块次数使用两次的  分离出来
+            // //单独打成used-twice.js 减少包的体积
+            // /**
+            //  * 升级到 v2.6 貌似async不起作用  article admin detail 都使用了但是moment都打包进了对应的chunk文件
+            //  * 导致文件增大了600kb
+            //  * 经过github上的提问 各路大神的帮助下  解决了上面这个问题 需要设置name!!!!!!!!!!!
+            //  */
+            // new webpack.optimize.splitChunks({
+            //     name: "app",
+            //     children: true,
+            //     async: 'used-twice',
+            //     minChunks: (module, count) => (
+            //         count >= 2
+            //     ),
+            // }),
+            // //[3]
+            // //[1][2][3] 是按需加载 大幅减少打包js体积的关键
+            // //遍历node_modules目录 以.js结尾 一道vender chunk
+            // //自动化分离第三方依赖
+            // new webpack.optimize.splitChunks({
+            //     name: 'app',
+            //     filename: "js/common.[chunkhash:8].js",
+            //     minChunks: ({ resource }) => (
+            //         resource &&
+            //         resource.indexOf('node_modules') >= 0 &&
+            //         resource.match(/\.js$/)
+            //     )
+            // }),
+            // new webpack.optimize.splitChunks({
+            //     name:['manifast']
+            // }),
             new webpack.LoaderOptionsPlugin({    //laoder最小化
                 minimize: true
             }),
@@ -261,13 +269,13 @@ module.exports = (env) => {
                 cssProcessorOptions: { discardComments: { removeAll: true } }, //移除所有注释
                 canPrint: true        //是否向控制台打印消息
             }),
-            //这个插件是我自己写的  用来动态生成webpack打包之后 的cache文件
-            new AddStaticCachePlugin({
-                template:path.resolve(__dirname,'cacheTemp.tpl'),
-                cacheName:"react-project.appcache",            //缓存文件名
-                comments:"如果你需要缓存一些静态资源",       //注释
-                publicPath:"/"                 //公共路径
-            })
+            // new AddStaticCachePlugin({
+            //     template:path.resolve(__dirname,'cacheTemp.tpl'),
+            //     cacheName:"react-project.appcache",            //缓存文件名
+            //     comments:"如果你需要缓存一些静态资源",       //注释
+            //     publicPath:"/"                 //公共路径
+            // }),
+            new ManifestPlugin()
         ])
     }
     options.plugins.push(

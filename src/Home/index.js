@@ -26,26 +26,25 @@ export default class Home extends PureComponent {
   state = {
     loading: false
   }
+  static myGithubAddress = "https://github.com/lijinke666/dawdler"
   goGithub = () => {
     message.info('Thank you!')
-    location.href = "https://github.com/lijinke666/dawdler"
+    location.href = this.myGithubAddress
   }
   render() {
     const { loading } = this.state
     const { name } = this.props               //通过 react-redux connect 之后 props 里面有 name 这个属性
     return (
-      <Fragment key="Fragment">
+      <Fragment>
         <div key="home" className="home">
           {
             loading
               ? <h2><Spin tip="Loading..."></Spin></h2>
-              : <Fragment>
-                <h2>Hello my name is <strong className="name">{name}</strong></h2>
-              </Fragment>
+              : <h2>Hello my name is <strong className="name">{name}</strong></h2>
           }
           <Button type="primary" onClick={this.goGithub}>Github</Button>
         </div>
-        <Divider>react-project-template By:<a href="https://github.com/lijinke666/dawdler" target="_blank">Dawdler</a></Divider>
+        <Divider>react-project-template By:<a href={this.myGithubAddress} target="_blank">Dawdler</a></Divider>
       </Fragment>
     )
   }

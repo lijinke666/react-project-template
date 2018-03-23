@@ -1,6 +1,6 @@
-import React from "react"
+import React,{PureComponent} from "react"
 
-export default class Root extends React.PureComponent {
+export default class Root extends PureComponent {
   constructor(props) {
     super(props)
   }
@@ -13,5 +13,8 @@ export default class Root extends React.PureComponent {
   }
   componentDidMount() {
     console.log('这个是母版,不会被刷新')
+  }
+  componentDidCatch(error,info){
+    console.log(error,info);
   }
 }

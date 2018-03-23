@@ -4,6 +4,7 @@ import React from "react"
 import ReactDOM from "react-dom"
 import { AppContainer as HotLoader } from "react-hot-loader"     //react-hot-loader  热更新可以保存状态  
 import { Provider } from "react-redux"
+import registerServiceWorker from './registerServiceWorker'   //server worker 开一个后台线程 处理离线缓存 加快访问速度
 
 //antd3.0 默认英文 需要手动设置为中文
 import { LocaleProvider } from 'antd'
@@ -36,3 +37,6 @@ if (module.hot) {
         render(App)
     });
 }
+
+
+registerServiceWorker()
