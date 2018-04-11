@@ -2,7 +2,7 @@
  * @Author: jinke.li 
  * @Date: 2017-05-03 16:32:21 
  * @Last Modified by: Jinke.Li
- * @Last Modified time: 2018-03-23 15:32:51
+ * @Last Modified time: 2018-04-11 14:35:13
  */
 const path = require('path')
 const webpack = require('webpack')
@@ -26,8 +26,6 @@ module.exports = (env) => {
 
     const options = {
         mode:mode,
-        //开发工具
-        devtool: mode === "DEV" ? "source-map" : false,
 
         //开发服务器
         devServer: {
@@ -48,7 +46,7 @@ module.exports = (env) => {
         },
 
         //入口
-        entry: mode === "DEV"
+        entry: mode === "development"
             ? [
                 "react-hot-loader/patch",        //热更新
                 `webpack-dev-server/client?${host}:${dev_port}`,
@@ -62,13 +60,13 @@ module.exports = (env) => {
         //打包输出
         output: {
             path: path.resolve(__dirname, "dist"),
-            filename: mode === "DEV"
+            filename: mode === "development"
                 ? "js/[name].js"
                 : "js/[name].[hash:8].js",
-            chunkFilename: mode === "DEV"
+            chunkFilename: mode === "development"
                 ? "js/[name]Chunk.js"
                 : "js/[name]Chunk.[hash:8].js",
-            publicPath: mode === "DEV"
+            publicPath: mode === "development"
                 ? `${host}:${dev_port}/`
                 : "/"
         },
@@ -86,12 +84,12 @@ module.exports = (env) => {
                 },
                 {
                     test: /\.less$/,
-                    use: mode === "DEV"      //开发环境 css打包到js中
+                    use: mode === "development"      //开发环境 css打包到js中
                         ? [
                             { loader: "style-loader" },          //loader 倒序执行  先执行 less-laoder
                             { loader: "css-loader", options: { minimize: false, sourceMap: true } },
                             { loader: "postcss-loader" },        //自动加前缀
-                            { loader: "less-loader", options: { sourceMap: true } }
+                            { loader: "less-loader", options: { sourceMap: true,javascriptEnabled:true } }
                         ]
                         : ExtractTextPlugin.extract({        //生产环境 把css单独分离出来
                             fallback: "style-loader",
@@ -109,11 +107,11 @@ module.exports = (env) => {
                 },
                 {
                     test: /\.css$/,
-                    use: mode === "DEV"
+                    use: mode === "development"
                         ? [
                             { loader: "style-loader" },          //loader 倒序执行  先执行 less-laoder
                             { loader: "css-loader", options: { minimize: false, sourceMap: true } },
-                            { loader: "postcss-loader" }
+                            { loader: "postcss-loader",options:{javascriptEnabled:true} }
                         ]
                         : ExtractTextPlugin.extract({
                             fallback: "style-loader",
@@ -123,7 +121,8 @@ module.exports = (env) => {
                                 {
                                     loader: "less-loader",
                                     options: {
-                                        sourceMap: false
+                                        sourceMap: false,
+                                        javascriptEnabled:true
                                     },
                                 },
                             ],
@@ -182,7 +181,7 @@ module.exports = (env) => {
         plugins: []
     }
     //根据开发环境不同  concat 不同的插件
-    if (mode === "DEV") {
+    if (mode === "development") {
         options.plugins = options.plugins.concat([
             new webpack.NamedModulesPlugin(),                   //打印更具可读性模块名称在浏览器控制台
             new webpack.NoEmitOnErrorsPlugin(),                 //错误不打断
@@ -190,9 +189,9 @@ module.exports = (env) => {
                 __DEBUG__: true,
             }),
             new webpack.HotModuleReplacementPlugin(),           //热加载插件  
-            new OpenBrowserPlugin({                            //编译完成打开浏览器
-                url: `${host}:${dev_port}`
-            })
+            // new OpenBrowserPlugin({                            //编译完成打开浏览器
+            //     url: `${host}:${dev_port}`
+            // })
         ])
     } else {
         options.plugins = options.plugins.concat([
