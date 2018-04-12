@@ -1,8 +1,8 @@
 /*
  * @Author: jinke.li 
  * @Date: 2017-05-03 16:32:21 
- * @Last Modified by: Jinke.Li
- * @Last Modified time: 2018-04-11 14:35:13
+ * @Last Modified by: mikey.zhaopeng
+ * @Last Modified time: 2018-04-13 00:44:12
  */
 const path = require('path')
 const webpack = require('webpack')
@@ -23,14 +23,16 @@ const { host, dev_port } = require("./config")
 module.exports = (env) => {
     //env 是npm script 运行webpack时传进来的  判断是否是开发环境
     const mode = (env && env.mode) || "development"
+    const isDev = mode === "development"
 
     const options = {
-        mode:mode,
+        mode: mode,
+        target: "web",
+        devtool: isDev ? "cheap-module-source-map" : "none",          //兼容react 错误边界
 
         //开发服务器
         devServer: {
             contentBase: path.resolve(__dirname, "dist"),   //静态资源根目录
-            compress: true,       //压缩
             port: dev_port,           //端口
             hot: true,            //热更新
             inline: true,         //iframe 模式
@@ -41,12 +43,12 @@ module.exports = (env) => {
                 version: true,    //显示版本号
                 warnings: true,   //显示警告
                 progress: true,   //显示进度,
-                timings:true,     //显示时间
+                timings: true,     //显示时间
             }
         },
 
         //入口
-        entry: mode === "development"
+        entry: isDev
             ? [
                 "react-hot-loader/patch",        //热更新
                 `webpack-dev-server/client?${host}:${dev_port}`,
@@ -60,13 +62,13 @@ module.exports = (env) => {
         //打包输出
         output: {
             path: path.resolve(__dirname, "dist"),
-            filename: mode === "development"
+            filename: isDev
                 ? "js/[name].js"
                 : "js/[name].[hash:8].js",
-            chunkFilename: mode === "development"
+            chunkFilename: isDev
                 ? "js/[name]Chunk.js"
                 : "js/[name]Chunk.[hash:8].js",
-            publicPath: mode === "development"
+            publicPath: isDev
                 ? `${host}:${dev_port}/`
                 : "/"
         },
@@ -87,15 +89,15 @@ module.exports = (env) => {
                     use: mode === "development"      //开发环境 css打包到js中
                         ? [
                             { loader: "style-loader" },          //loader 倒序执行  先执行 less-laoder
-                            { loader: "css-loader", options: { minimize: false, sourceMap: true } },
-                            { loader: "postcss-loader" },        //自动加前缀
-                            { loader: "less-loader", options: { sourceMap: true,javascriptEnabled:true } }
+                            { loader: "css-loader", options: { javascriptEnabled:true,minimize: false, sourceMap: true } },
+                            { loader: "postcss-loader", options: {  javascriptEnabled:true,sourceMap: true } },        //自动加前缀
+                            { loader: "less-loader", options: { javascriptEnabled:true,sourceMap: true } }
                         ]
                         : ExtractTextPlugin.extract({        //生产环境 把css单独分离出来
                             fallback: "style-loader",
                             use: [
                                 "css-loader",
-                                "postcss-loader",
+                                { loader: "postcss-loader", options: { sourceMap: false } },
                                 {
                                     loader: "less-loader",
                                     options: {
@@ -107,22 +109,24 @@ module.exports = (env) => {
                 },
                 {
                     test: /\.css$/,
-                    use: mode === "development"
+                    use: isDev
                         ? [
                             { loader: "style-loader" },          //loader 倒序执行  先执行 less-laoder
-                            { loader: "css-loader", options: { minimize: false, sourceMap: true } },
-                            { loader: "postcss-loader",options:{javascriptEnabled:true} }
+                            { loader: "css-loader", options: { javascriptEnabled:true,minimize: false, sourceMap: true } },
+                            { loader: "postcss-loader", options: {  javascriptEnabled:true,sourceMap: true } }
                         ]
                         : ExtractTextPlugin.extract({
                             fallback: "style-loader",
                             use: [
                                 "css-loader",
-                                "postcss-loader",
+                                {
+                                    loader: "postcss-loader",
+                                    options: {  sourceMap: false }
+                                },
                                 {
                                     loader: "less-loader",
                                     options: {
                                         sourceMap: false,
-                                        javascriptEnabled:true
                                     },
                                 },
                             ],
@@ -164,9 +168,7 @@ module.exports = (env) => {
         },
 
         //webpack4 相关升级配置
-        optimization: {      
-            //压缩                          
-            minimize:true,      
+        optimization: {
             //代码分割
             splitChunks: {
                 chunks: 'all',
@@ -181,10 +183,8 @@ module.exports = (env) => {
         plugins: []
     }
     //根据开发环境不同  concat 不同的插件
-    if (mode === "development") {
+    if (isDev) {
         options.plugins = options.plugins.concat([
-            new webpack.NamedModulesPlugin(),                   //打印更具可读性模块名称在浏览器控制台
-            new webpack.NoEmitOnErrorsPlugin(),                 //错误不打断
             new webpack.DefinePlugin({                          //调试
                 __DEBUG__: true,
             }),
@@ -208,59 +208,14 @@ module.exports = (env) => {
                 filename: 'css/app.[contenthash:8].css',
                 allChunks: true
             }),
-            // //[1]
-            // //找到所有node_modules的依赖包  分离出来
-            // // /axios/ 没有用到的模块
-            // new webpack.optimize.splitChunks({
-            //     name: "app",
-            //     async: "common-in-lazy",
-            //     children: true,
-            //     minChunks: ({ resource } = {}) => (
-            //         resource &&
-            //         resource.includes('node_modules') &&
-            //         /axios/.test(resource)
-            //     )
-            // }),
-            // // [2]
-            // //找到模块次数使用两次的  分离出来
-            // //单独打成used-twice.js 减少包的体积
-            // /**
-            //  * 升级到 v2.6 貌似async不起作用  article admin detail 都使用了但是moment都打包进了对应的chunk文件
-            //  * 导致文件增大了600kb
-            //  * 经过github上的提问 各路大神的帮助下  解决了上面这个问题 需要设置name!!!!!!!!!!!
-            //  */
-            // new webpack.optimize.splitChunks({
-            //     name: "app",
-            //     children: true,
-            //     async: 'used-twice',
-            //     minChunks: (module, count) => (
-            //         count >= 2
-            //     ),
-            // }),
-            // //[3]
-            // //[1][2][3] 是按需加载 大幅减少打包js体积的关键
-            // //遍历node_modules目录 以.js结尾 一道vender chunk
-            // //自动化分离第三方依赖
-            // new webpack.optimize.splitChunks({
-            //     name: 'app',
-            //     filename: "js/common.[chunkhash:8].js",
-            //     minChunks: ({ resource }) => (
-            //         resource &&
-            //         resource.indexOf('node_modules') >= 0 &&
-            //         resource.match(/\.js$/)
-            //     )
-            // }),
-            // new webpack.optimize.splitChunks({
-            //     name:['manifast']
-            // }),
             new webpack.LoaderOptionsPlugin({    //laoder最小化
                 minimize: true
             }),
             //图片压缩
             new ImageminPlugin({
                 test: /\.(jpe?g|png|gif|svg)$/i,
-                pngquant:{
-                    quality:'90-100'
+                pngquant: {
+                    quality: '90-100'
                 }
             }),
             new CptimizeCssAssetsPlugin({          //压缩css  与 ExtractTextPlugin 配合使用
@@ -287,8 +242,8 @@ module.exports = (env) => {
         }),
         //拷贝图片 到 打包目录下
         new CopyWebpackPlugin([{
-            from: path.resolve(__dirname,'images'),
-            to:path.resolve(__dirname,'dist/images')
+            from: path.resolve(__dirname, 'images'),
+            to: path.resolve(__dirname, 'dist/images')
         }]),
     )
     return options

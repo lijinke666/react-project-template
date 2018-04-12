@@ -1,8 +1,7 @@
 //项目入口文件
 
 import React from "react"
-import ReactDOM from "react-dom"
-import { AppContainer as HotLoader } from "react-hot-loader"     //react-hot-loader  热更新可以保存状态  
+import ReactDOM from "react-dom"   
 import { Provider } from "react-redux"
 
 //antd3.0 默认英文 需要手动设置为中文
@@ -29,10 +28,5 @@ const render = (Component) => {
         document.getElementById('root')
     )
 }
+
 render(App)
-//webpack内置对象
-if (module.hot) {
-    module.hot.accept("app", () => {
-        render(App)
-    });
-}

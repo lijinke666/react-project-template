@@ -1,25 +1,32 @@
 {
-  "presets": [         
+  "presets": [
     [
-      "es2015",
+      "@babel/preset-env",
       {
         "modules": false
       }
     ],
-    "stage-3",
-    "react"
+    "@babel/preset-react",
+    "@babel/preset-stage-0"
   ],
+  "env": {
+    "production": {
+      "presets": ["react-optimize"]
+    }
+  },
   "plugins": [
-    "syntax-dynamic-import", 
-    "transform-async-to-generator",   
-    "transform-decorators-legacy",      
-    "transform-object-rest-spread",   
-    "transform-class-properties",   
-    "transform-runtime",
-    "react-hot-loader/babel",     
-    ["import",{
-      "libraryName":"antd",
-      "style":true
-    }]      
+    "@babel/plugin-syntax-dynamic-import",
+    "transform-async-to-generator",
+    "transform-decorators-legacy",
+    "transform-object-rest-spread",
+    "transform-class-properties",
+    "react-hot-loader/babel",
+    [
+      "import",
+      {
+        "libraryName": "antd",
+        "style": true
+      }
+    ]
   ]
 }
