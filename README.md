@@ -13,7 +13,6 @@ Have Fun !
 - 打包 `npm run build`
 - 升级所有包 `npm run upgrade`
 
-模板用到的技术栈 如果不喜欢 可自行替换 详细请看 `package.json`
 
 
 ### 项目目录
