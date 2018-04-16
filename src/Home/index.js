@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 import { Divider, Button, message,Spin } from "antd"
+import ErrorBoundary from "shared/components/ErrorBoundary"
 
 import getMyName from "./action"
 import "./styles.less"

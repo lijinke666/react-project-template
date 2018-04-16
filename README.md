@@ -58,7 +58,7 @@ Have Fun !
                 - [browser.js       内置判断设备 js 如不喜欢 可删除](#browserjs-------内置判断设备-js-如不喜欢-可删除)
                 - [helper.js        项目工具函数 内置 基本的 `getJson` 和 `postJson` 两个方法](#helperjs--------项目工具函数-内置-基本的-getjson-和-postjson-两个方法)
                 - [routes.js        项目的路由配置文件](#routesjs--------项目的路由配置文件)
-            - [middleware    redux 自定义中间键](#middleware------------redux 自定义中间键)
+            - [middleware       redux 自定义中间键](#middleware-------------redux自定义中间键)
             - [styles            项目公用样式](#styles------------项目公用样式)
                 - [fonts.less       项目字体](#fontsless-------项目字体)
                 - [mixin.less       项目 less 公用方法](#mixinless-------项目-less-公用方法)
