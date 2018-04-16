@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 import { Divider, Button, message,Spin } from "antd"
@@ -26,7 +26,10 @@ export default class Home extends PureComponent {
   state = {
     loading: false
   }
-  static myGithubAddress = "https://github.com/lijinke666/dawdler"
+  constructor(props){
+    super(props)
+    this.myGithubAddress = "https://github.com/lijinke666/dawdler"
+  }
   goGithub = () => {
     message.info('Thank you!')
     location.href = this.myGithubAddress
@@ -35,7 +38,7 @@ export default class Home extends PureComponent {
     const { loading } = this.state
     const { name } = this.props               //通过 react-redux connect 之后 props 里面有 name 这个属性
     return (
-      <Fragment>
+      <>
         <div key="home" className="home">
           {
             loading
@@ -45,7 +48,7 @@ export default class Home extends PureComponent {
           <Button type="primary" onClick={this.goGithub}>Github</Button>
         </div>
         <Divider>react-project-template By:<a href={this.myGithubAddress} target="_blank">Dawdler</a></Divider>
-      </Fragment>
+      </>
     )
   }
   componentDidMount() {

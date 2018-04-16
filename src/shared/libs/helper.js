@@ -1,11 +1,11 @@
 /*
  * @Author: jinke.li 
  * @Date: 2017-07-17 19:42:21 
- * @Last Modified by:   jinke.li 
- * @Last Modified time: 2017-07-17 19:42:21 
+ * @Last Modified by: Jinke.Li
+ * @Last Modified time: 2018-04-16 18:25:16
  */
 import obj2Query from "libs/params"
-import Message from "shared/components/Message"
+import {message} from "antd"
 import NProgress from "nprogress"
 import { host, port, mock_host, mock_port } from "../../../config"
 const mode = process.env.NODE_ENV || "DEV"
@@ -97,10 +97,10 @@ const helper = {
         return data.json()
       case this.resCode['ERROR']:
         this.removeProgress()
-        return Message.error(this.resMessage['ERROR'])
+        return message.error(this.resMessage['ERROR'])
       case this.resCode['TIMEOUT']:
         this.removeProgress()
-        return Message.error(this.resMessage['TIMEOUT'])
+        return message.error(this.resMessage['TIMEOUT'])
       default:
         this.removeProgress()
         return data.json()

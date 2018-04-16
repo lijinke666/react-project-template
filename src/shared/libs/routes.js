@@ -1,3 +1,4 @@
+import { renderRoutes } from 'react-router-config'
 import NProgress from "nprogress"
 import "nprogress/nprogress.css"
 
@@ -17,8 +18,7 @@ const loadRoute = (importFn, name = "default") => {
 }
 
 //这里配置路由地址
-
-export default [
+const routes = [
   {
     path: "/",
     getComponent: Root,
@@ -35,5 +35,10 @@ export default [
     path: "test",
     getComponent: Test
   }
-
 ]
+
+export default {
+  Root,
+  Home,
+  Test
+}
