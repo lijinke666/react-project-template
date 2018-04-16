@@ -57,7 +57,6 @@ Have Fun !
             - [libs              第三方库 和自己写的工具 js](#libs--------------第三方库-和自己写的工具-js)
                 - [browser.js       内置判断设备 js 如不喜欢 可删除](#browserjs-------内置判断设备-js-如不喜欢-可删除)
                 - [helper.js        项目工具函数 内置 基本的 `getJson` 和 `postJson` 两个方法](#helperjs--------项目工具函数-内置-基本的-getjson-和-postjson-两个方法)
-                - [params.js        转换请求参数格式](#paramsjs--------转换请求参数格式)
                 - [routes.js        项目的路由配置文件](#routesjs--------项目的路由配置文件)
             - [middleware    redux 自定义中间键](#middleware------------redux 自定义中间键)
             - [styles            项目公用样式](#styles------------项目公用样式)

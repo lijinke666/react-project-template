@@ -31,11 +31,14 @@ module.exports = (env) => {
     const options = {
         mode: mode,
         target: "web",
-        devtool: isDev ? "cheap-module-source-map" : "none",          //兼容react 错误边界
 
         //开发服务器
         devServer: {
-            contentBase: path.resolve(__dirname, "dist"),   //静态资源根目录
+            //静态资源根目录
+            contentBase: [
+                path.resolve(__dirname, "dist"),
+                path.resolve(__dirname,"rest-mock")
+            ],   
             port: dev_port,           //端口
             hot: true,            //热更新
             inline: true,         //iframe 模式
@@ -217,7 +220,7 @@ module.exports = (env) => {
         options.plugins = options.plugins.concat([
             new webpack.HashedModuleIdsPlugin(),     //生成稳定的hashId 没有改变的chunk文件这样hash不会变
             new ExtractTextPlugin({                // 将打包文件中的css分离成一个单独的css文件
-                filename: 'css/app.[contenthash:8].css',
+                filename: 'css/app.[hash:8].css',
                 allChunks: true
             }),
             new webpack.LoaderOptionsPlugin({    //laoder最小化

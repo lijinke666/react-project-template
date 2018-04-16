@@ -7,6 +7,7 @@ export default class Root extends PureComponent {
   render() {
     return (
       <div>
+        <h2>2222</h2>
         {this.props.children}
       </div>
     )

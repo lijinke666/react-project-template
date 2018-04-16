@@ -13,7 +13,7 @@ import "./styles.less"
  */
 @connect(
   ({ HomeReducer }) => ({
-    name: HomeReducer.name,
+    data: HomeReducer.data,
   }),
   (dispatch) => (
     bindActionCreators({
@@ -24,39 +24,40 @@ import "./styles.less"
 
 export default class Home extends PureComponent {
   state = {
-    loading: false
+    loading: true
   }
   constructor(props){
     super(props)
     this.myGithubAddress = "https://github.com/lijinke666/dawdler"
   }
-  goGithub = () => {
+  goGithub = (url) => {
     message.info('Thank you!')
-    location.href = this.myGithubAddress
+    location.href = url
   }
   render() {
     const { loading } = this.state
-    const { name } = this.props               //通过 react-redux connect 之后 props 里面有 name 这个属性
+    const { data:{
+      toolName,
+      name,
+      repository
+    } } = this.props               //通过 react-redux connect 之后 props 里面有 state 里的 data
+
     return (
       <>
         <div key="home" className="home">
           {
             loading
               ? <h2><Spin tip="Loading..."></Spin></h2>
-              : <h2>Hello my name is <strong className="name">{name}</strong></h2>
+              : <h2>Hey ! welcome to use  <strong className="name">{toolName}</strong></h2>
           }
-          <Button type="primary" onClick={this.goGithub}>Github</Button>
+          <Button icon="github" type="primary" onClick={()=> this.goGithub(repository.git)}>Github</Button>
         </div>
-        <Divider>react-project-template By:<a href={this.myGithubAddress} target="_blank">Dawdler</a></Divider>
+        <Divider>{name} By: <a href={repository.git} target="_blank">{toolName}</a></Divider>
       </>
     )
   }
-  componentDidMount() {
-    this.setState({ loading: true }, () => {
-      setTimeout(() => {
-        this.props.getMyName('Dawdler')
-        this.setState({ loading: false })
-      }, 1000)
-    })
+  async componentDidMount() {
+      await this.props.getMyName('Dawdler')
+      this.setState({loading:false})
   }
 }

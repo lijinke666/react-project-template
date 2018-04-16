@@ -1,14 +1,18 @@
 import {TEST_ACTION} from "../action"
 const defaultState = {
-    name:'Dawdler'
+    data:{
+        toolName:"",
+        name:"",
+        repository:{}
+    }
 }
 export default function (state = defaultState, action) {
-    const {type,name} = action
+    const {type,data} = action
     switch (type) {
         case TEST_ACTION:
             return {
                 ...state,
-                name
+                data
             }
         default:
             return state

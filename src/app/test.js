@@ -8,7 +8,7 @@ export default class Test extends PureComponent {
   }
   render() {
     return (
-        <Container>Dawdler!</Container>
+        <Container><h2>Dawdler!</h2></Container>
     )
   }
   componentDidMount() {
