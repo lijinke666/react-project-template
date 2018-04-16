@@ -1,18 +1,27 @@
 # react-project-template
-react+redux+ES6+webpack3.X 项目模板,支持按需加载 <br/>
+react+redux+ES6+webpack@4.X+babel@7.x 项目模板,支持按需加载 <br/>
 by Dawdler [https://github.com/lijinke666/dawdler](https://github.com/lijinke666/dawdler)
 Have Fun ! 
 
 > 文件目录 参考 之前公司架构师 `seth` 大牛
 
 
-#### 基本的 npm scripts
+### 基本的 npm scripts
 
 - 开始 `npm start`
 - 启动开发服务器 `npm run dev`
 - 打包 `npm run build`
 - 升级所有包 `npm run upgrade`
 
+
+### 相关技术栈
+- react@16.3.1
+- redux@3.7.2
+- webpack@4.5.0
+- babel@7.x
+- react-router@4.x
+- react-redux@5.0.7
+- antd
 
 
 ### 项目目录
@@ -44,15 +53,12 @@ Have Fun !
             - [styles.less       主页的样式](#stylesless-------主页的样式)
         - [shared             公用模块](#shared-------------公用模块)
             - [components        公用组件](#components--------公用组件)
-                - [Button           内置按钮组件 如不喜欢 可删除](#button-----------内置按钮组件-如不喜欢-可删除)
                 - [Container        内置1200px 居中 组件 如不喜欢 可删除](#container--------内置1200px-居中-组件-如不喜欢-可删除)
-                - [Message          内置消息提示组件 如不喜欢  可删除](#message----------内置消息提示组件-如不喜欢--可删除)
-                - [Modal            内置弹窗组件 如不喜欢 可删除](#modal------------内置弹窗组件-如不喜欢-可删除)
             - [libs              第三方库 和自己写的工具 js](#libs--------------第三方库-和自己写的工具-js)
                 - [browser.js       内置判断设备 js 如不喜欢 可删除](#browserjs-------内置判断设备-js-如不喜欢-可删除)
                 - [helper.js        项目工具函数 内置 基本的 `getJson` 和 `postJson` 两个方法](#helperjs--------项目工具函数-内置-基本的-getjson-和-postjson-两个方法)
-                - [params.js        转换请求参数格式](#paramsjs--------转换请求参数格式)
                 - [routes.js        项目的路由配置文件](#routesjs--------项目的路由配置文件)
+            - [middleware    redux 自定义中间键](#middleware------------redux 自定义中间键)
             - [styles            项目公用样式](#styles------------项目公用样式)
                 - [fonts.less       项目字体](#fontsless-------项目字体)
                 - [mixin.less       项目 less 公用方法](#mixinless-------项目-less-公用方法)
@@ -64,7 +70,6 @@ Have Fun !
         - [style.less         基础的 css 设置](#styleless---------基础的-css-设置)
     - [.babelrc            babel 插件配置](#babelrc------------babel-插件配置)
     - [.gitgnore           git 忽略文件配置](#gitgnore-----------git-忽略文件配置)
-    - [cacheTemp.tpl       缓存模板   请看 `webpack.config.js` 这里用到了自己写的一个 模板生成插件 如不喜欢 可去除](#cachetemptpl-------缓存模板---请看-webpackconfigjs-这里用到了自己写的一个-模板生成插件-如不喜欢-可去除)
     - [LICENTSE            项目开源协议](#licentse------------项目开源协议)
     - [package.json        包依赖](#packagejson--------包依赖)
     - [postcss.config.js   postcss 配置](#postcssconfigjs---postcss-配置)

@@ -1,13 +1,14 @@
 /*
  * @Author: jinke.li 
  * @Date: 2017-07-17 19:42:21 
- * @Last Modified by:   jinke.li 
- * @Last Modified time: 2017-07-17 19:42:21 
+ * @Last Modified by: Jinke.Li
+ * @Last Modified time: 2018-04-16 18:25:16
  */
-import obj2Query from "libs/params"
-import Message from "shared/components/Message"
+import {message} from "antd"
 import NProgress from "nprogress"
+import qs from "qs"
 import { host, port, mock_host, mock_port } from "../../../config"
+import {HTTP_RES_MESSAGES,HTTP_CODE} from "../../../config/http.config"
 const mode = process.env.NODE_ENV || "DEV"
 import "nprogress/nprogress.css"
 
@@ -19,61 +20,48 @@ import "nprogress/nprogress.css"
  */
 
 const helper = {
-  //状态码
-  resCode: {
-    "SUCCESS": 200,
-    "ERROR": 500,
-    "TIMEOUT": 503
-  },
-  //状态码对应 文字提示
-  resMessage: {
-    "SUCCESS": "接口请求成功:)",
-    "ERROR": "接口请求失败:(",
-    "TIMEOUT": "网络不给力,请求超时:("
-  },
-  jsonToString(params) {
-    return obj2Query.toQueryString(params)
-  },
   /**
    * 拉取模拟数据  
-   * @param {any} url 
-   * @param {any} params 
+   * @param {String} url 
+   * @param {Object} params 
+   * @return res
    */
   async getMockJson(url, params) {
     NProgress.start()
     const data = await (
-      fetch(`${mock_host}:${mock_port}${url}${params ? '?' + (this.jsonToString(params)) : ''}`, {
+      fetch(`${mock_host}:${mock_port}${url}${params ? '?' + (qs.stringify(params)) : ''}`, {
         method: "GET",
         mode: "cors",
       })
     )
-    return this.sendResponse(data)
+    return helper.sendResponse(data)
   },
+  
   /**
-   * get 请求
-   * params {url} String 请求地址 支持跨域
-   * parmas {params} obj 请求参数 
+   * @name get 请求
+   * @param {String} url 请求地址 支持跨域
+   * @param {Object} params 请求参数 
+   * @return res
    */
-
-  async getJson(url, params) {
+  async get(url, params) {
     NProgress.start()
     const data = await (
-      fetch(`${host}:${port}${url}${params ? '?' + (this.jsonToString(params)) : ''}`, {
+      fetch(`${host}:${port}${url}${params ? '?' + (qs.stringify(params)) : ''}`, {
         method: "GET",
         mode: "cors",
       })
     )
-    return this.sendResponse(data)
+    return helper.sendResponse(data)
   },
 
   /**
-   * post 请求
-   * params {url} String 请求地址 支持跨域
-   * parmas {params} obj 请求参数 
-   * parmas {isForm} boolean 是否是表单提交 表单提交 如:formData 
+   * @name post 请求
+   * @param {String} url 请求地址 支持跨域
+   * @param {Object} params 请求参数 
+   * @param {Boolean}isForm 是否是表单提交 表单提交 如:formData 
+   * @return res
    */
-
-  async postJson(url, params, isForm = false) {
+  async post(url, params, isForm = false) {
     const fetchConfig = {
       method: "POST",
       mode: "cors",
@@ -82,7 +70,7 @@ const helper = {
     const data = (await
       fetch(`${host}:${port}${url}`, fetchConfig)
     )
-    return this.sendResponse(data)
+    return helper.sendResponse(data)
   },
   removeProgress() {
     NProgress.done()
@@ -92,17 +80,17 @@ const helper = {
   sendResponse(data) {
     const { status } = data
     switch (status) {
-      case this.resCode['SUCCESS']:
-        this.removeProgress()
+      case HTTP_CODE['SUCCESS']:
+        helper.removeProgress()
         return data.json()
-      case this.resCode['ERROR']:
-        this.removeProgress()
-        return Message.error(this.resMessage['ERROR'])
-      case this.resCode['TIMEOUT']:
-        this.removeProgress()
-        return Message.error(this.resMessage['TIMEOUT'])
+      case HTTP_CODE['ERROR']:
+        helper.removeProgress()
+        return message.error(HTTP_RES_MESSAGES['ERROR'])
+      case HTTP_CODE['TIMEOUT']:
+        helper.removeProgress()
+        return message.error(HTTP_RES_MESSAGES['TIMEOUT'])
       default:
-        this.removeProgress()
+        helper.removeProgress()
         return data.json()
     }
   }

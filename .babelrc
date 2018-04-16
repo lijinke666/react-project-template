@@ -1,25 +1,33 @@
 {
-  "presets": [         
+  "presets": [
     [
-      "es2015",
+      "@babel/preset-env",
       {
         "modules": false
       }
     ],
-    "stage-3",
-    "react"
+    "@babel/preset-react",
+    "@babel/preset-stage-0"
   ],
+  "env": {
+    "production": {
+      "presets": ["react-optimize"]
+    }
+  },
   "plugins": [
-    "syntax-dynamic-import",   //解析webpack2.4.0  新增的 按需加载 import 语法
-    "transform-async-to-generator",     //支持async写法
-    "transform-decorators-legacy",      //类的修饰器   @connect
-    "transform-object-rest-spread",    //类的静态属性  不会被继承  static defaultProps
-    "transform-class-properties",     //可以写类属性 test = ()=>{}
-    "transform-runtime",
-    "react-hot-loader/babel",      //热跟新
-    ["import",{
-      "libraryName":"antd",
-      "style":true
-    }]      
+    "@babel/plugin-syntax-dynamic-import",
+    "@babel/plugin-proposal-object-rest-spread",
+    "@babel/plugin-transform-runtime",
+    "transform-async-to-generator",
+    "transform-decorators-legacy",
+    "transform-class-properties",
+    "react-hot-loader/babel",
+    [
+      "import",
+      {
+        "libraryName": "antd",
+        "style": true
+      }
+    ]
   ]
 }
