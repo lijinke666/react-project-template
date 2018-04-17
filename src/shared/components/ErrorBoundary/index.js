@@ -1,7 +1,15 @@
-import React, { PureComponent } from "react"
+import React, { Component } from "react"
 import { Alert } from 'antd'
+import {getDisplayName} from "libs/component"
 
-class ErrorBoundary extends PureComponent {
+/**
+ * @name ErrorBoundary
+ * @use  @ErrorBoundary
+ */
+
+export default function ErrorBoundary(WrappedComponent) {
+  return class HOC extends Component {
+    static displayName = `HOC(${getDisplayName(WrappedComponent)})`
     constructor(props) {
         super(props)
         this.state = { error: null, errorInfo: null }
@@ -13,12 +21,11 @@ class ErrorBoundary extends PureComponent {
             errorInfo: errorInfo
         })
     }
-
     render() {
         if (this.state.errorInfo) {
             return (
                 <Alert
-                    message="Something went wrong."
+                    message="ERROR:"
                     description={
                         <div>
                             {this.state.error && this.state.error.toString()}
@@ -32,6 +39,7 @@ class ErrorBoundary extends PureComponent {
             )
 
         }
-        return this.props.children
+        return <WrappedComponent {...this.props}/>
     }
+  }
 }

@@ -1,5 +1,8 @@
 
 //选用 HTML5 history api 模式 
-import createHistory from 'history/createHashHistory'
+import createBrowserHistory from 'history/createBrowserHistory'
 
-export default createHistory()
+export default createBrowserHistory({
+  basename: "", // The base URL of the app (see below)
+  forceRefresh: false, // Set true to force full page refreshes
+})

@@ -1,12 +1,14 @@
 # react-project-template
 react+redux+ES6+webpack@4.X+babel@7.x 项目模板,支持按需加载 <br/>
-by Dawdler [https://github.com/lijinke666/dawdler](https://github.com/lijinke666/dawdler)
+
+by Dawdler [https://github.com/lijinke666/dawdler](https://github.com/lijinke666/dawdler) <br/>
+
 Have Fun ! 
 
 > 文件目录 参考 之前公司架构师 `seth` 大牛
 
 
-### 基本的 npm scripts
+## 基本的 npm scripts
 
 - 开始 `npm start`
 - 启动开发服务器 `npm run dev`
@@ -14,7 +16,7 @@ Have Fun !
 - 升级所有包 `npm run upgrade`
 
 
-### 相关技术栈
+## 相关技术栈
 - react@16.3.1
 - redux@3.7.2
 - webpack@4.5.0
@@ -23,8 +25,50 @@ Have Fun !
 - react-redux@5.0.7
 - antd
 
+## 网络请求
+> 基于 window.fetch 封装
+```js
+import helper from "libs/helper"
 
-### 项目目录
+/**
+ * @param {String} URL  请求地址
+ * @param {Object} PARMAS  请求参数
+ * @param {Boolean} ISFORM  是否是 formData 类型 比如文件上传
+ * @return res
+ */
+await helper.get(URL,PARMAS)
+//get mock
+await helper.getMockJson(URL,PARMAS)
+//post
+await helper.post(URL,PARMAS,ISFORM)
+```
+
+## 默认高阶组件
+> 错误边界
+```jsx
+import ErrorBoundary from "shared/components/ErrorBoundary"
+
+@ErrorBoundary
+export default class App extends React.PureComponent{
+    ...
+}
+```
+
+## 默认组件 
+> 1200px 包裹容器
+```jsx
+import Container from "shared/components/Container"
+export default class App extends React.PureComponent{
+    render(){
+        retrun(
+            <Container>xxxx</Container>
+        )
+    }
+}
+```
+
+
+## 项目目录
 
 <!-- TOC -->
 
@@ -39,6 +83,7 @@ Have Fun !
         - [app](#app)
             - [components](#components)
                 - [Root     母版组件](#root-----母版组件)
+                - [NotFound     404组件](#NotFound-----404组件)
                 - [xxxx     你的其他一般组件](#xxxx-----你的其他一般组件)
             - [routes            路由](#routes------------路由)
                 - [xx.js            你的路由文件](#xxjs------------你的路由文件)
@@ -54,6 +99,7 @@ Have Fun !
         - [shared             公用模块](#shared-------------公用模块)
             - [components        公用组件](#components--------公用组件)
                 - [Container        内置1200px 居中 组件 如不喜欢 可删除](#container--------内置1200px-居中-组件-如不喜欢-可删除)
+                - [ErrorBoundary        错误边界](#ErrorBoundary--------错误边界)
             - [libs              第三方库 和自己写的工具 js](#libs--------------第三方库-和自己写的工具-js)
                 - [browser.js       内置判断设备 js 如不喜欢 可删除](#browserjs-------内置判断设备-js-如不喜欢-可删除)
                 - [helper.js        项目工具函数 内置 基本的 `getJson` 和 `postJson` 两个方法](#helperjs--------项目工具函数-内置-基本的-getjson-和-postjson-两个方法)

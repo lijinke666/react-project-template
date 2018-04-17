@@ -1,5 +1,6 @@
 import {TEST_ACTION} from "../action"
 const defaultState = {
+    loading:true,
     data:{
         toolName:"",
         name:"",
@@ -7,12 +8,13 @@ const defaultState = {
     }
 }
 export default function (state = defaultState, action) {
-    const {type,data} = action
+    const {type,data,loading} = action
     switch (type) {
         case TEST_ACTION:
             return {
                 ...state,
-                data
+                data,
+                loading
             }
         default:
             return state

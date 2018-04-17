@@ -4,10 +4,10 @@ import { BrowserRouter, Redirect, Route,Link } from 'react-router-dom'
 import { ConnectedRouter } from 'react-router-redux'   //5.0 移除了 history 需要手动引入 history依赖
 import { AnimatedSwitch } from 'react-router-transition'
 import { Home, Root, Test } from "libs/routes"
+import NotFound from "app/components/NotFound"
 import history from "libs/history"
 
 import "./styles.less"
-
 
 class App extends PureComponent {
     render() {
@@ -23,6 +23,7 @@ class App extends PureComponent {
                             <Route exact path="/" component={Home} />
                             <Route exact path="/home" render={()=> <Redirect to="/" /> } component={Home} />
                             <Route path="/test" component={Test} />
+                            <Route path="*" component={NotFound} />
                         </AnimatedSwitch>
                     </BrowserRouter>
                 </ConnectedRouter>

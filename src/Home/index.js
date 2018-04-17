@@ -2,9 +2,9 @@ import React, { PureComponent } from 'react'
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 import { Divider, Button, message,Spin } from "antd"
-import ErrorBoundary from "shared/components/ErrorBoundary"
+import errorBoundary from "shared/components/ErrorBoundary"
 
-import getMyName from "./action"
+import sayHello from "./action"
 import "./styles.less"
 
 /**
@@ -15,50 +15,48 @@ import "./styles.less"
 @connect(
   ({ HomeReducer }) => ({
     data: HomeReducer.data,
+    loading:HomeReducer.loading
   }),
   (dispatch) => (
     bindActionCreators({
-      getMyName
+      sayHello
     }, dispatch)
   )
 )
+@errorBoundary
 
 export default class Home extends PureComponent {
-  state = {
-    loading: true
-  }
   constructor(props){
     super(props)
-    this.myGithubAddress = "https://github.com/lijinke666/dawdler"
   }
   goGithub = (url) => {
     message.info('Thank you!')
     location.href = url
   }
   render() {
-    const { loading } = this.state
-    const { data:{
-      toolName,
-      name,
-      repository
+    const { 
+      loading,
+      data:{
+        toolName,
+        name,
+        repository
     } } = this.props               //通过 react-redux connect 之后 props 里面有 state 里的 data
 
     return (
-      <>
         <div key="home" className="home">
-          {
-            loading
-              ? <h2><Spin tip="Loading..."></Spin></h2>
-              : <h2>Hey ! welcome to use  <strong className="name">{toolName}</strong></h2>
-          }
-          <Button icon="github" type="primary" onClick={()=> this.goGithub(repository.git)}>Github</Button>
+        {
+          loading
+          ? <Spin tip={`Welcome to use Dawdler.`} size="large"></Spin>
+          : <>
+              <h2>Hey ! Thank you for using  <strong className="name">{toolName}</strong></h2>
+              <Button icon="github" type="primary" onClick={()=> this.goGithub(repository.git)}>Github</Button>
+              <Divider>{name} By: <a href={repository.git} target="_blank">{toolName}</a></Divider>
+            </>
+        }
         </div>
-        <Divider>{name} By: <a href={repository.git} target="_blank">{toolName}</a></Divider>
-      </>
     )
   }
   async componentDidMount() {
-      await this.props.getMyName('Dawdler')
-      this.setState({loading:false})
+      await this.props.sayHello()
   }
 }
