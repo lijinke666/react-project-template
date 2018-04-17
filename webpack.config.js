@@ -160,6 +160,10 @@ module.exports = (env) => {
                         },
                     ],
                 },
+                {
+                    test: /\.json$/,
+                    use: 'json-loader'
+                  }
             ]
         },
 

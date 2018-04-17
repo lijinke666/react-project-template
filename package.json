@@ -44,8 +44,10 @@
   "license": "MIT",
   "dependencies": {
     "antd": "3.3.1",
+    "axios": "^0.18.0",
     "classnames": "^2.2.5",
     "history": "^4.7.2",
+    "js-cookie": "^2.2.0",
     "moment": "^2.18.1",
     "normalize.css": "^8.0.0",
     "nprogress": "^0.2.0",
@@ -94,6 +96,7 @@
     "html-loader": "^0.4.5",
     "html-webpack-plugin": "3.0.6",
     "imagemin-webpack-plugin": "^1.4.4",
+    "json-loader": "^0.5.7",
     "legit-image": "^0.1.4",
     "less": "2.7.3",
     "less-loader": "4.1.0",

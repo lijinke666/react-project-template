@@ -3,7 +3,10 @@ module.exports =  {
   HTTP_CODE: {
     "SUCCESS": 200,
     "ERROR": 500,
-    "TIMEOUT": 503
+    "TIMEOUT": 503,
+    "NOTFOUND": 404,
+    "TOKEN": 400,            //token 失效
+    "NOTDONE":300
   },
   //状态码对应 文字提示
   HTTP_RES_MESSAGES: {
@@ -11,4 +14,5 @@ module.exports =  {
     "ERROR": "接口请求失败:(",
     "TIMEOUT": "网络不给力,请求超时:("
   },
+  TIMEOUT:10000
 }

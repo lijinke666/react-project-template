@@ -26,21 +26,22 @@ Have Fun !
 - antd
 
 ## 网络请求
-> 基于 window.fetch 封装
+> 基于 window.fetch 和 axios 封装
 ```js
-import helper from "libs/helper"
+import fetch from "libs/fetch"
 
 /**
  * @param {String} URL  请求地址
  * @param {Object} PARMAS  请求参数
- * @param {Boolean} ISFORM  是否是 formData 类型 比如文件上传
- * @return res
+ * @return response
  */
-await helper.get(URL,PARMAS)
-//get mock
-await helper.getMockJson(URL,PARMAS)
-//post
-await helper.post(URL,PARMAS,ISFORM)
+//window.fetch
+await fetch.getMockJson(URL,PARMAS)
+await fetch.postMockJson(URL,PARMAS)
+
+//axios
+await fetch.get(URL,PARMAS)
+await fetch.post(URL,PARMAS)
 ```
 
 ## 默认高阶组件
@@ -102,7 +103,7 @@ export default class App extends React.PureComponent{
                 - [ErrorBoundary        错误边界](#ErrorBoundary--------错误边界)
             - [libs              第三方库 和自己写的工具 js](#libs--------------第三方库-和自己写的工具-js)
                 - [browser.js       内置判断设备 js 如不喜欢 可删除](#browserjs-------内置判断设备-js-如不喜欢-可删除)
-                - [helper.js        项目工具函数 内置 基本的 `getJson` 和 `postJson` 两个方法](#helperjs--------项目工具函数-内置-基本的-getjson-和-postjson-两个方法)
+                - [fetch.js        网络请求](#helperjs--------网络请求)
                 - [routes.js        项目的路由配置文件](#routesjs--------项目的路由配置文件)
             - [middleware       redux 自定义中间键](#middleware-------------redux自定义中间键)
             - [styles            项目公用样式](#styles------------项目公用样式)

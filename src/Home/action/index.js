@@ -1,4 +1,4 @@
-import helper from "libs/helper"
+import fetch from "libs/fetch"
 export const TEST_ACTION = "test_action"
 
 /**
@@ -6,7 +6,7 @@ export const TEST_ACTION = "test_action"
  */
 export default (parmas = {}) => (dispatch) => {        
     setTimeout( async ()=>{
-        const data = await helper.getMockJson('/dwadler.json')
+        const data = await fetch.getMockJson('/dwadler.json')
         dispatch({
             type: TEST_ACTION,
             data,
