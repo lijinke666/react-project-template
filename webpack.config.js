@@ -4,24 +4,21 @@
  * @Last Modified by: Jinke.Li
  * @Last Modified time: 2018-04-16 17:39:08
  */
+/*eslint-disable*/
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require("html-webpack-plugin")            //自动生成一个html 引入打包之后的js
 const ExtractTextPlugin = require("extract-text-webpack-plugin")    //默认打包css 这些全部在js 里面  用这个可以分离出来 单独生成css文件  //生产环节会用到
 const CopyWebpackPlugin = require('copy-webpack-plugin')           //拷贝文件  当有第三方依赖可以copy到打包文件夹中
-const autoprefixer = require('autoprefixer')                       //自动加前缀
 const CptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin') //压缩css
 const ImageminPlugin = require('imagemin-webpack-plugin').default         //压缩图片
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')       //生成打包图
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');            //webpack3 单独分离出来了这个压缩的
-const AddStaticCachePlugin = require('add-static-cache-webpack-plugin')      //自己写的 写入缓存插件
 const ManifestPlugin = require('webpack-manifest-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const Dashboard = require('webpack-dashboard')
 const DashboardPlugin = require('webpack-dashboard/plugin')
 const dashboard = new Dashboard()
 
-const { host, dev_port } = require("./config")
+const { host, devPort } = require("./config")
 
 module.exports = (env) => {
     //env 是npm script 运行webpack时传进来的  判断是否是开发环境
@@ -29,7 +26,7 @@ module.exports = (env) => {
     const isDev = mode === "development"
 
     const options = {
-        mode: mode,
+        mode,
         target: "web",
 
         //开发服务器
@@ -39,7 +36,7 @@ module.exports = (env) => {
                 path.resolve(__dirname, "dist"),
                 path.resolve(__dirname,"rest-mock")
             ],   
-            port: dev_port,           //端口
+            port: devPort,           //端口
             hot: true,            //热更新
             inline: true,         //iframe 模式
             historyApiFallback: true,    //浏览器 history
@@ -59,7 +56,7 @@ module.exports = (env) => {
         entry: isDev
             ? [
                 "react-hot-loader/patch",        //热更新
-                `webpack-dev-server/client?${host}:${dev_port}`,
+                `webpack-dev-server/client?${host}:${devPort}`,
                 "webpack/hot/only-dev-server",
                 path.resolve(__dirname, "src/index.js")
             ]
@@ -77,7 +74,7 @@ module.exports = (env) => {
                 ? "js/[name]Chunk.js"
                 : "js/[name]Chunk.[hash:8].js",
             publicPath: isDev
-                ? `${host}:${dev_port}/`
+                ? `${host}:${devPort}/`
                 : "/"
         },
 

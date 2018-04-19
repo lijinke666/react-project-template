@@ -10,8 +10,8 @@
     "@babel/preset-stage-0"
   ],
   "env": {
-    "production": {
-      "presets": ["react-optimize"]
+    "test": {
+      "presets": [["env"], "react"]
     }
   },
   "plugins": [
