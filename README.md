@@ -15,7 +15,7 @@ Have Fun !
 - 打包 `npm run build`
 - 升级所有包 `npm run upgrade`
 - 代码风格检查 `npm run lint`
-- 单元测试  `npm run test`
+- 测试 `npm run test`
 
 
 ## 相关技术栈
