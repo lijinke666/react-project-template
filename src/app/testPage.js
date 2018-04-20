@@ -2,7 +2,7 @@ import React, { PureComponent } from "react";
 import Container from "shared/components/Container";
 import { message } from "antd";
 
-export default class Test extends PureComponent {
+export default class TestPage extends PureComponent {
   constructor(props) {
     super(props);
   }
