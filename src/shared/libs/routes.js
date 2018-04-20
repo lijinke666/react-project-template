@@ -13,6 +13,6 @@ const loadRoute = loader => {
 //这里引入你的路由
 const Root = loadRoute(import("app/components/Root")); //母版
 const Home = loadRoute(import("Home")); //主页
-const Test = loadRoute(import("app/test")); //测试组件路由
+const TestPage = loadRoute(import("app/testPage")); //测试组件路由
 
-export { Root, Home, Test };
+export { Root, Home, TestPage };

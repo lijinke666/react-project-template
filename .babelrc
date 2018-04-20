@@ -11,7 +11,7 @@
   ],
   "env": {
     "test": {
-      "presets": [["env"], "react"]
+      "presets": [["@babel/preset-env"], "react"]
     }
   },
   "plugins": [
