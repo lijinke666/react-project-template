@@ -1,21 +1,21 @@
 {
   "name": "dawdler-react-project-template",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "react project template By:dawdler",
   "private": true,
   "main": "src/index.js",
   "scripts": {
     "start": "npm run dev",
     "clean": "rimraf dist",
-    "build": "npm run clean && cross-env NODE_ENV='production' npm run clean && webpack --env.mode=production --mode production --progress --config webpack.config.js",
-    "dev": "npm run clean && cross-env NODE_ENV='development' && webpack-dev-server --mode development --config webpack.config.js",
+    "build": "npm run clean && cross-env NODE_ENV=production npm run clean && webpack --env.mode=production --mode production --progress --config webpack.config.js",
+    "dev": "npm run clean && cross-env NODE_ENV=development && webpack-dev-server --mode development --config webpack.config.js",
     "upgrade": "yarn upgrade",
+    "precommit": "lint-staged",
     "lint": "prettier --write \"src/**/*.js\" && eslint_d --fix src",
-    "test": "jest"
+    "test": "jest __tests__/tests",
+    "coverage": "jest --coverage"
   },
-  "pre-commit": [
-    "lint"
-  ],
+  "pre-commit": "lint",
   "lint-staged": {
     "src/**/*.js": [
       "prettier --write",
@@ -78,28 +78,33 @@
   },
   "devDependencies": {
     "@babel/cli": "7.0.0-beta.44",
-    "@babel/core": "7.0.0-beta.44",
+    "@babel/core": "^7.0.0-beta.44",
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0-beta.44",
     "@babel/plugin-syntax-dynamic-import": "^7.0.0-beta.44",
     "@babel/plugin-transform-runtime": "^7.0.0-beta.44",
-    "@babel/preset-env": "^7.0.0-beta.32",
-    "@babel/preset-react": "^7.0.0-beta.32",
+    "@babel/preset-env": "7.0.0-beta.36",
+    "@babel/preset-react": "7.0.0-beta.36",
     "@babel/preset-stage-0": "^7.0.0-beta.44",
     "@babel/preset-stage-3": "^7.0.0-beta.44",
     "@babel/runtime": "^7.0.0-beta.44",
     "add-static-cache-webpack-plugin": "^0.1.5",
     "autoprefixer": "8.2.0",
-    "babel-core": "7.0.0-0",
+    "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^8.2.3",
+    "babel-jest": "^22.4.3",
     "babel-loader": "8.0.0-beta.2",
     "babel-plugin-import": "^1.7.0",
     "babel-plugin-transform-class-properties": "^6.23.0",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-require-ignore": "^0.1.1",
     "chai": "^3.5.0",
     "copy-webpack-plugin": "latest",
     "cross-env": "^4.0.0",
     "css-loader": "0.28.11",
     "cssnano": "^3.10.0",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-to-json": "^3.3.3",
     "eslint": "^4.19.1",
     "eslint-plugin-babel": "^5.0.0",
     "eslint-plugin-react": "^7.7.0",
@@ -108,6 +113,7 @@
     "file-loader": "1.1.10",
     "html-loader": "^0.4.5",
     "html-webpack-plugin": "3.0.6",
+    "identity-obj-proxy": "^3.0.0",
     "imagemin-webpack-plugin": "^1.4.4",
     "jest": "^22.4.3",
     "json-loader": "^0.5.7",
@@ -122,8 +128,10 @@
     "pre-commit": "^1.2.2",
     "prettier": "^1.12.1",
     "react-hot-loader": "4.0.1",
-    "react-loader": "2.4.1",
+    "react-loader": "^2.4.5",
+    "react-test-renderer": "^16.3.2",
     "redux-logger": "^3.0.6",
+    "regenerator-runtime": "^0.11.1",
     "rimraf": "^2.6.1",
     "style-loader": "0.20.3",
     "uglifyjs-webpack-plugin": "1.2.4",
@@ -134,5 +142,33 @@
     "webpack-dashboard": "^1.1.1",
     "webpack-dev-server": "3.1.3",
     "webpack-manifest-plugin": "^2.0.0-rc.2"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "jsx",
+      "json"
+    ],
+    "transformIgnorePatterns": [ "/node_modules/"],
+    "moduleDirectories": [
+      "node_modules",
+      ".",
+      "src",
+      "src/shared"
+    ],
+    "setupTestFrameworkScriptFile": "<rootDir>/__tests__/setup.js",
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}"
+    ],
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    },
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__tests__/__mocks__/fileMock.js",
+      "\\.(css|less)$": "<rootDir>/__tests__/__mocks__/styleMock.js"
+    }
   }
 }

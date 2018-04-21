@@ -1,7 +1,7 @@
 //项目中可能需要用到判断用户是手机还是pc
 
 const browser = {
-  isPC: (function() {
+  isPC() {
     let userAgentInfo = navigator.userAgent;
     let Agents = [
       "Android",
@@ -19,7 +19,7 @@ const browser = {
       }
     }
     return flag;
-  })(),
+  },
   language: (navigator.browserLanguage || navigator.language).toLowerCase()
 };
 

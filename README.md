@@ -1,4 +1,5 @@
 # react-project-template
+[![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
 
 react+redux+ES6+webpack@4.X+babel@7.x 项目模板,支持按需加载 <br/>
 
@@ -35,6 +36,22 @@ npm start
 * react-router@4.x
 * react-redux@5.0.7
 * antd
+
+## 关于 jest
+> 由于使用的babel7 为了保持兼容 安装了一个
+
+```
+yarn add --dev babel-core@7.0.0-0 @babel/core babel-jest
+```
+
+请选择桥接模式(bridge) `babel-core@7.0.0-bridge.0`
+否则 `npm run test`可能出现以下报错
+
+```
+    Requires Babel "^7.0.0-0", but was loaded with "6.26.0". If you are sure you have a compatible version of @babel/core, it is likely that something in your build process is loading the wrong version. Inspect the stack trace of this error to look for the first entry that doesn't mention "@babel/core" or "babel-core" to see what is calling Babel.
+```
+[https://github.com/babel/babel-bridge](https://github.com/babel/babel-bridge)
+
 
 ## 网络请求
 
