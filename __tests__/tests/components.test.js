@@ -5,6 +5,7 @@ import Root from "../../src/app/components/Root";
 import ErrorBoundary from "../../src/shared/components/ErrorBoundary";
 import Container from "../../src/shared/components/Container";
 import NotFound from "../../src/app/components/NotFound";
+import {getDisplayName} from "../../src/shared/libs/component";
 import { Alert } from "antd";
 import { render, mount, shallow } from "enzyme";
 
@@ -43,4 +44,10 @@ describe("ComponentsTests", () => {
       assert( wrapper.find(".wrap").length === 1)
     });
   });
+  describe('getDisplayName',()=>{
+    it('should return components getDisplayName',()=>{
+      const name = getDisplayName(Container)
+      assert( name === "Container")
+    })
+  })
 });

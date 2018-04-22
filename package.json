@@ -1,6 +1,6 @@
 {
   "name": "dawdler-react-project-template",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "react project template By:dawdler",
   "private": true,
   "main": "src/index.js",
