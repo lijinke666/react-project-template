@@ -26,6 +26,7 @@ npm start
 * 升级所有包 `npm run upgrade`
 * 代码风格检查 `npm run lint`
 * 测试 `npm run test`
+* 覆盖率 `npm run ci`
 
 ## 相关技术栈
 

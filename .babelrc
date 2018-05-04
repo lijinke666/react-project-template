@@ -7,7 +7,12 @@
       }
     ],
     "@babel/preset-react",
-    "@babel/preset-stage-0"
+    [
+      "@babel/preset-stage-0",
+      {
+        "decoratorsLegacy": true
+      }
+    ]
   ],
   "env": {
     "test": {
@@ -25,11 +30,19 @@
   "plugins": [
     "@babel/plugin-syntax-dynamic-import",
     "@babel/plugin-proposal-object-rest-spread",
-    "@babel/plugin-transform-runtime",
-    "transform-async-to-generator",
+    "@babel/plugin-transform-async-to-generator",
+    "@babel/plugin-proposal-class-properties",
     "transform-decorators-legacy",
-    "transform-class-properties",
     "react-hot-loader/babel",
+    [
+      "@babel/plugin-transform-runtime",
+      {
+        "helpers": false,
+        "polyfill": false,
+        "regenerator": true,
+        "moduleName": "@babel/runtime"
+      }
+    ],
     [
       "import",
       {

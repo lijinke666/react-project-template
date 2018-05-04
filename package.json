@@ -1,6 +1,6 @@
 {
   "name": "dawdler-react-project-template",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "description": "react project template By:dawdler",
   "private": true,
   "main": "src/index.js",
@@ -13,7 +13,8 @@
     "precommit": "lint-staged",
     "lint": "prettier --write \"src/**/*.js\" && eslint_d --fix src",
     "test": "jest __tests__/tests",
-    "coverage": "jest --coverage"
+    "coverage": "yarn test -- --coverage",
+    "ci": "yarn coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "pre-commit": "lint",
   "lint-staged": {
@@ -79,11 +80,13 @@
   "devDependencies": {
     "@babel/cli": "7.0.0-beta.44",
     "@babel/core": "^7.0.0-beta.44",
+    "@babel/plugin-proposal-class-properties": "^7.0.0-beta.46",
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0-beta.44",
     "@babel/plugin-syntax-dynamic-import": "^7.0.0-beta.44",
+    "@babel/plugin-transform-async-to-generator": "^7.0.0-beta.46",
     "@babel/plugin-transform-runtime": "^7.0.0-beta.44",
-    "@babel/preset-env": "7.0.0-beta.36",
-    "@babel/preset-react": "7.0.0-beta.36",
+    "@babel/preset-env": "7.0.0-beta.44",
+    "@babel/preset-react": "7.0.0-beta.44",
     "@babel/preset-stage-0": "^7.0.0-beta.44",
     "@babel/preset-stage-3": "^7.0.0-beta.44",
     "@babel/runtime": "^7.0.0-beta.44",
@@ -99,6 +102,7 @@
     "babel-plugin-transform-require-ignore": "^0.1.1",
     "chai": "^3.5.0",
     "copy-webpack-plugin": "latest",
+    "coveralls": "^3.0.1",
     "cross-env": "^4.0.0",
     "css-loader": "0.28.11",
     "cssnano": "^3.10.0",
@@ -149,7 +153,9 @@
       "jsx",
       "json"
     ],
-    "transformIgnorePatterns": [ "/node_modules/"],
+    "transformIgnorePatterns": [
+      "/node_modules/"
+    ],
     "moduleDirectories": [
       "node_modules",
       ".",
