@@ -68,7 +68,7 @@ export default class Home extends PureComponent {
       </div>
     );
   }
-  async componentDidMount() {
-    await this.props.sayHello();
+  componentDidMount() {
+    this.props.sayHello();
   }
 }

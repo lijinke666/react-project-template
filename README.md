@@ -30,13 +30,13 @@ npm start
 
 ## 相关技术栈
 
-* react@16.3.1
-* redux@3.7.2
+* react@16.3.2
+* redux@4.0.0
 * webpack@4.5.0
-* babel@7.x
+* babel@7.0.0-beta.44
 * react-router@4.x
 * react-redux@5.0.7
-* antd
+* antd@3.5.0
 
 ## 关于 jest
 > 由于使用的babel7 为了保持兼容 安装了一个
