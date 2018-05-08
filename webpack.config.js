@@ -2,7 +2,7 @@
  * @Author: jinke.li 
  * @Date: 2017-05-03 16:32:21 
  * @Last Modified by: Jinke.Li
- * @Last Modified time: 2018-04-16 17:39:08
+ * @Last Modified time: 2018-05-08 13:11:09
  */
 /*eslint-disable*/
 const path = require('path')
@@ -182,6 +182,20 @@ module.exports = (env) => {
             splitChunks: {
                 chunks: 'all',
                 name: 'common',
+                cacheGroups: {
+                    commons: {
+                      name: 'commons',
+                      priority: 10,
+                      chunks: 'initial'
+                    },
+                    styles: {
+                      name: 'styles',
+                      test: /\.css$/,
+                      chunks: 'all',
+                      minChunks: 2,
+                      enforce: true
+                    }
+                  }
             },
             runtimeChunk: {
                 name: 'runtime',
@@ -221,7 +235,7 @@ module.exports = (env) => {
         options.plugins = options.plugins.concat([
             new webpack.HashedModuleIdsPlugin(),     //生成稳定的hashId 没有改变的chunk文件这样hash不会变
             new ExtractTextPlugin({                // 将打包文件中的css分离成一个单独的css文件
-                filename: 'css/app.[hash:8].css',
+                filename: 'css/[name].[hash:8].css',
                 allChunks: true
             }),
             new webpack.LoaderOptionsPlugin({    //laoder最小化
