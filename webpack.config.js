@@ -2,7 +2,7 @@
  * @Author: jinke.li 
  * @Date: 2017-05-03 16:32:21 
  * @Last Modified by: Jinke.Li
- * @Last Modified time: 2018-05-14 17:34:59
+ * @Last Modified time: 2018-06-19 15:16:19
  */
 /*eslint-disable*/
 const path = require("path");
@@ -14,9 +14,6 @@ const CptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin"); /
 const ImageminPlugin = require("imagemin-webpack-plugin").default; //压缩图片
 const ManifestPlugin = require("webpack-manifest-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
-const Dashboard = require("webpack-dashboard");
-const DashboardPlugin = require("webpack-dashboard/plugin");
-const dashboard = new Dashboard();
 
 const { host, devPort } = require("./config");
 
@@ -165,7 +162,7 @@ module.exports = env => {
             {
               loader: "file-loader",
               options: {
-                name: "images/[name][chunkhash:8].[ext]" //遇到图片  生成一个images文件夹  名字.后缀的图片
+                name: "images/[name][hash:8].[ext]" //遇到图片  生成一个images文件夹  名字.后缀的图片
               }
             }
           ]
@@ -176,7 +173,7 @@ module.exports = env => {
             {
               loader: "file-loader",
               options: {
-                name: "fonts/[name][chunkhash:8].[ext]"
+                name: "fonts/[name][hash:8].[ext]"
               }
             }
           ]
@@ -256,7 +253,6 @@ module.exports = env => {
   //根据开发环境不同  concat 不同的插件
   if (isDev) {
     options.plugins = options.plugins.concat([
-      new DashboardPlugin(dashboard.setData),
       new webpack.HotModuleReplacementPlugin() //热加载插件
     ]);
   } else {
