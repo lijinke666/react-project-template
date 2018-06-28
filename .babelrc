@@ -32,7 +32,6 @@
     "@babel/plugin-proposal-object-rest-spread",
     "@babel/plugin-transform-async-to-generator",
     "@babel/plugin-proposal-class-properties",
-    "transform-decorators-legacy",
     "react-hot-loader/babel",
     [
       "@babel/plugin-transform-runtime",

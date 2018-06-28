@@ -9,7 +9,6 @@ const path = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin"); //自动生成一个html 引入打包之后的js
 const ExtractTextPlugin = require("extract-text-webpack-plugin"); //默认打包css 这些全部在js 里面  用这个可以分离出来 单独生成css文件  //生产环节会用到
-const CopyWebpackPlugin = require("copy-webpack-plugin"); //拷贝文件  当有第三方依赖可以copy到打包文件夹中
 const CptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin"); //压缩css
 const ImageminPlugin = require("imagemin-webpack-plugin").default; //压缩图片
 const ManifestPlugin = require("webpack-manifest-plugin");
@@ -284,14 +283,7 @@ module.exports = env => {
       template: path.resolve(__dirname, "src/index.html"), //模板文件
       hash: true, //添加hash码
       inject: true //注射所有资源到 body元素的底部     "head" "body" true false  "body" == true
-    }),
-    //拷贝图片 到 打包目录下
-    new CopyWebpackPlugin([
-      {
-        from: path.resolve(__dirname, "images"),
-        to: path.resolve(__dirname, "dist/images")
-      }
-    ])
+    })
   );
   return options;
 };
