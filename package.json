@@ -5,16 +5,16 @@
   "private": true,
   "main": "src/index.js",
   "scripts": {
-    "start": "yarn dev",
+    "start": "npm dev",
     "clean": "rimraf dist",
-    "build": "cross-env NODE_ENV=production && yarn run clean && webpack --env.mode=production --mode production --progress --config webpack.config.js",
-    "dev": "cross-env NODE_ENV=development && yarn run clean && webpack-dev-server --mode development --progress --config webpack.config.js",
-    "upgrade": "yarn upgrade",
+    "build": "cross-env NODE_ENV=production && npm run clean && webpack --env.mode=production --mode production --progress --config webpack.config.js",
+    "dev": "cross-env NODE_ENV=development && npm run clean && webpack-dev-server --mode development --progress --config webpack.config.js",
+    "upgrade": "npm upgrade",
     "precommit": "lint-staged",
     "lint": "prettier --write \"src/**/*.js\" && eslint_d --fix src",
     "test": "jest __tests__/tests",
-    "coverage": "yarn test -- --coverage",
-    "ci": "yarn coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+    "coverage": "npm test -- --coverage",
+    "ci": "npm coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "pre-commit": "lint",
   "lint-staged": {
