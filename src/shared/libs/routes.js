@@ -11,13 +11,9 @@ const loadRoute = loader => {
   });
 };
 
-//这里引入你的路由
-const Root = loadRoute(
-  import(/* webpackChunkName: "root" */ "app/components/Root")
-); //母版
 const Home = loadRoute(import(/* webpackChunkName: "home" */ "Home")); //主页
 const TestPage = loadRoute(
   import(/* webpackChunkName: "testPage" */ "app/testPage")
 ); //测试组件路由
 
-export { Root, Home, TestPage };
+export { Home, TestPage };
