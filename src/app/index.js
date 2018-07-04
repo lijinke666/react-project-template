@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import { hot } from "react-hot-loader";
-import { BrowserRouter, Redirect, Route,Switch } from "react-router-dom";
+import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { ConnectedRouter } from "react-router-redux"; //5.0 移除了 history 需要手动引入 history依赖
 import { Home, TestPage } from "libs/routes";
 import NotFound from "app/components/NotFound";
