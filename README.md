@@ -3,7 +3,7 @@
 
 react+redux+ES6+webpack@4.X+babel@7.x 项目模板,支持按需加载 <br/>
 
-by Dawdler [https://github.com/lijinke666/dawdler](https://github.com/lijinke666/dawdler) <br/>
+也可以通过脚手架直接生成 [https://github.com/lijinke666/dawdler](https://github.com/lijinke666/dawdler) <br/>
 
 Have Fun !
 
@@ -63,16 +63,16 @@ import fetch from "libs/fetch"
 
 /**
  * @param {String} URL  请求地址
- * @param {Object} PARMAS  请求参数
+ * @param {Object} PARAMS  请求参数
  * @return response
  */
 //window.fetch
-await fetch.getMockJson(URL,PARMAS)
-await fetch.postMockJson(URL,PARMAS)
+await fetch.getMockJson(URL,PARAMS)
+await fetch.postMockJson(URL,PARAMS)
 
 //axios
-await fetch.get(URL,PARMAS)
-await fetch.post(URL,PARMAS)
+await fetch.get(URL,PARAMS)
+await fetch.post(URL,PARAMS)
 ```
 
 ## 默认高阶组件
@@ -96,7 +96,7 @@ export default class App extends React.PureComponent{
 import Container from "shared/components/Container";
 export default class App extends React.PureComponent {
   render() {
-    retrun(<Container>xxxx</Container>);
+    return(<Container>xxxx</Container>);
   }
 }
 ```
@@ -132,7 +132,6 @@ export default class App extends React.PureComponent {
         * [Container 内置 1200px 居中 组件 如不喜欢 可删除](#container--------内置1200px-居中-组件-如不喜欢-可删除)
         * [ErrorBoundary 错误边界](#ErrorBoundary--------错误边界)
       * [libs 第三方库 和自己写的工具 js](#libs--------------第三方库-和自己写的工具-js)
-        * [browser.js 内置判断设备 js 如不喜欢 可删除](#browserjs-------内置判断设备-js-如不喜欢-可删除)
         * [fetch.js 网络请求](#helperjs--------网络请求)
         * [routes.js 项目的路由配置文件](#routesjs--------项目的路由配置文件)
       * [middleware redux 自定义中间键](#middleware-------------redux自定义中间键)

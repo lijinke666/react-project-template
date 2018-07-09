@@ -1,16 +1,9 @@
-/*
- * @Author: jinke.li 
- * @Date: 2017-05-03 16:32:21 
- * @Last Modified by: Jinke.Li
- * @Last Modified time: 2018-06-19 15:16:19
- */
-/*eslint-disable*/
 const path = require("path");
 const webpack = require("webpack");
-const HtmlWebpackPlugin = require("html-webpack-plugin"); //自动生成一个html 引入打包之后的js
-const ExtractTextPlugin = require("extract-text-webpack-plugin"); //默认打包css 这些全部在js 里面  用这个可以分离出来 单独生成css文件  //生产环节会用到
-const CptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin"); //压缩css
-const ImageminPlugin = require("imagemin-webpack-plugin").default; //压缩图片
+const HtmlWebpackPlugin = require("html-webpack-plugin"); 
+const ExtractTextPlugin = require("extract-text-webpack-plugin"); 
+const CptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin"); 
+const ImageminPlugin = require("imagemin-webpack-plugin").default; 
 const ManifestPlugin = require("webpack-manifest-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
@@ -87,7 +80,7 @@ module.exports = env => {
           use:
             mode === "development" //开发环境 css打包到js中
               ? [
-                  { loader: "style-loader" }, //loader 倒序执行  先执行 less-laoder
+                  { loader: "style-loader" }, //loader 倒序执行  先执行 less-loader
                   {
                     loader: "css-loader",
                     options: {
@@ -282,7 +275,6 @@ module.exports = env => {
       filename: "index.html", //自动把打包的js文件引入进去
       template: path.resolve(__dirname, "src/index.html"), //模板文件
       hash: true, //添加hash码
-      inject: true //注射所有资源到 body元素的底部     "head" "body" true false  "body" == true
     })
   );
   return options;

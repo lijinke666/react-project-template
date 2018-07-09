@@ -8,8 +8,6 @@ const options = {
   port:9999,                      //接口请求的 端口
   mockHost:"http://localhost",   //模拟数据服务器 host
   mockPort:8080,                 //模拟数据服务器 port
-  origin:"xxxx",
-  copyright:"xxxx"                //你的版权说明
 }
 
 module.exports = options

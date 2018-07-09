@@ -1,10 +1,7 @@
-//项目入口文件
-
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 
-//antd3.0 默认英文 需要手动设置为中文
 import { LocaleProvider } from "antd";
 import zhCN from "antd/lib/locale-provider/zh_CN";
 import moment from "moment";

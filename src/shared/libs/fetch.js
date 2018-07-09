@@ -1,9 +1,3 @@
-/*
- * @Author: jinke.li 
- * @Date: 2017-07-17 19:42:21 
- * @Last Modified by: Jinke.Li
- * @Last Modified time: 2018-04-16 18:25:16
- */
 import { message } from "antd";
 import NProgress from "nprogress";
 import qs from "qs";

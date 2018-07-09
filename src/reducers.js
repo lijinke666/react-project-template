@@ -2,7 +2,7 @@
 
 import HomeReducer from "Home/reducer";
 
-import { combineReducers } from "redux"; //reducer的合并
+import { combineReducers } from "redux";
 
 const chatReducer = combineReducers({
   HomeReducer
