@@ -2,6 +2,6 @@
 import createBrowserHistory from "history/createBrowserHistory";
 
 export default createBrowserHistory({
-  basename: "", 
-  forceRefresh: false 
+  basename: "",
+  forceRefresh: false
 });

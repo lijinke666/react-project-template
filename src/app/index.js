@@ -13,12 +13,7 @@ class App extends PureComponent {
     return (
       <ConnectedRouter history={history}>
         <BrowserRouter>
-          <Switch
-            atEnter={{ opacity: 0 }}
-            atLeave={{ opacity: 0 }}
-            atActive={{ opacity: 1 }}
-            className="switch-wrapper"
-          >
+          <Switch>
             <Route exact path="/" component={Home} />
             <Route
               exact
