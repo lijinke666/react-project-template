@@ -14,7 +14,9 @@ module.exports = {
     browser: true,
     commonjs: true
   },
-  globals: {},
+  globals: {
+    process: true
+  },
   rules: {
     "object-shorthand": "error",
     "generator-star-spacing": ["error", "after"],
