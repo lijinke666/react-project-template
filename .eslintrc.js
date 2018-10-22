@@ -15,7 +15,8 @@ module.exports = {
     commonjs: true
   },
   globals: {
-    process: true
+    process: true,
+    __dirname: true,
   },
   rules: {
     "object-shorthand": "error",

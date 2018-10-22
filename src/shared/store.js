@@ -1,26 +1,26 @@
-import { createStore, applyMiddleware, compose } from "redux";
-import { routerMiddleware } from "react-router-redux";
-import logger from "redux-logger";
+import { createStore, applyMiddleware } from "redux";
+import { routerMiddleware, connectRouter } from 'connected-react-router'
+import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
+import { createLogger } from "redux-logger";
 import thunk from "redux-thunk";
 import history from "libs/history";
 
-import hello from "./middleware/hello";
+const logger = createLogger({
+  collapsed: true,
+  diff: true
+});
 
 import reducers from "reducers";
 
 const configureStore = (initialState = {}) => {
-  const middleware = [routerMiddleware(history), thunk, hello, logger];
-  if (process.env.NODE_ENV === "development") {
-    const enhancer = compose(
-      applyMiddleware(...middleware),
-      window.devToolsExtension ? window.devToolsExtension() : f => f
-    );
-    const store = createStore(reducers, compose(middleware), enhancer);
-    return store;
-  } else {
-    const store = createStore(reducers, compose(middleware));
-    return store;
-  }
+  const middleware = [routerMiddleware(history), thunk, logger];
+
+  return createStore(
+    connectRouter(history)(reducers),
+    initialState,
+    composeWithDevTools(applyMiddleware(...middleware))
+  );
+  
 };
 
 export default configureStore();

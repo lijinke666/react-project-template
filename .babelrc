@@ -6,48 +6,34 @@
         "modules": false
       }
     ],
-    "@babel/preset-react",
-    [
-      "@babel/preset-stage-0",
-      {
-        "decoratorsLegacy": true
-      }
-    ]
+    "@babel/preset-react"
   ],
-  "env": {
-    "test": {
-      "presets": [["@babel/preset-env"], "@babel/preset-react"],
-      "plugins": [
-        [
-          "transform-require-ignore",
-          {
-            "extensions": [".less"]
-          }
-        ]
-      ]
-    }
-  },
   "plugins": [
     "@babel/plugin-syntax-dynamic-import",
     "@babel/plugin-proposal-object-rest-spread",
     "@babel/plugin-transform-async-to-generator",
     "@babel/plugin-proposal-class-properties",
-    "react-hot-loader/babel",
+    "@babel/plugin-transform-exponentiation-operator",
+    "@babel/plugin-proposal-numeric-separator",
+    "@babel/plugin-proposal-throw-expressions",
     [
-      "@babel/plugin-transform-runtime",
+      "@babel/plugin-proposal-pipeline-operator",
       {
-        "helpers": false,
-        "polyfill": false,
-        "regenerator": true,
-        "moduleName": "@babel/runtime"
+        "proposal": "minimal"
       }
     ],
     [
-      "import",
+      "@babel/plugin-proposal-decorators",
       {
-        "libraryName": "antd",
-        "style": true
+        "legacy": true
       }
-    ]
+    ],
+    "react-hot-loader/babel",
+    "@babel/plugin-transform-runtime",
+    ["import", {
+      "libraryName": "antd",
+      "libraryDirectory": "es",
+      "style": true
+    }]
   ]
 }

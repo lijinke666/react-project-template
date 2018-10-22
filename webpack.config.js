@@ -191,6 +191,8 @@ module.exports = env => {
 
     //webpack4 相关升级配置
     optimization: {
+      concatenateModules: true,
+      noEmitOnErrors: true,
       //代码分割
       splitChunks: {
         cacheGroups: {
@@ -250,13 +252,13 @@ module.exports = env => {
   } else {
     options.plugins = options.plugins.concat([
       new webpack.HashedModuleIdsPlugin(), //生成稳定的hashId 没有改变的chunk文件这样hash不会变
+      // 将打包文件中的css分离成一个单独的css文件
       new ExtractTextPlugin({
-        // 将打包文件中的css分离成一个单独的css文件
         filename: "css/[name].[chunkhash:8].css",
         allChunks: true
       }),
+      //loader 最小化
       new webpack.LoaderOptionsPlugin({
-        //laoder最小化
         minimize: true
       }),
       //图片压缩
@@ -272,9 +274,9 @@ module.exports = env => {
   options.plugins.push(
     new HtmlWebpackPlugin({
       title: "react-project-template",
-      filename: "index.html", //自动把打包的js文件引入进去
-      template: path.resolve(__dirname, "src/index.html"), //模板文件
-      hash: true, //添加hash码
+      filename: "index.html",
+      template: path.resolve(__dirname, "src/index.html"),
+      hash: true
     })
   );
   return options;
