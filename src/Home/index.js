@@ -46,7 +46,7 @@ export default class Home extends PureComponent {
               <strong className="name">{toolName}</strong>
             </h2>
             <div className="logo">
-              <img src={require('../../logo.png')} alt=""/>
+              <img src={require("../../logo.png")} alt="" />
             </div>
             <Button
               icon="github"
