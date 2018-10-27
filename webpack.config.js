@@ -2,9 +2,8 @@ const path = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin"); 
 const ExtractTextPlugin = require("extract-text-webpack-plugin"); 
-const CptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin"); 
+const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin"); 
 const ImageminPlugin = require("imagemin-webpack-plugin").default; 
-const ManifestPlugin = require("webpack-manifest-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 const { host, devPort } = require("./config");
@@ -232,7 +231,7 @@ module.exports = env => {
                 }
               }
             }),
-            new CptimizeCssAssetsPlugin({
+            new OptimizeCssAssetsPlugin({
               //压缩css  与 ExtractTextPlugin 配合使用
               cssProcessor: require("cssnano"),
               cssProcessorOptions: { discardComments: { removeAll: true } }, //移除所有注释
@@ -267,8 +266,7 @@ module.exports = env => {
         pngquant: {
           quality: "90-100"
         }
-      }),
-      new ManifestPlugin()
+      })
     ]);
   }
   options.plugins.push(
