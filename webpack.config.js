@@ -9,7 +9,6 @@ const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const { host, devPort } = require("./config");
 
 module.exports = env => {
-  //env 是npm script 运行webpack时传进来的  判断是否是开发环境
   const mode = (env && env.mode) || "development";
   const isDev = mode === "development";
 
@@ -17,34 +16,30 @@ module.exports = env => {
     mode,
     target: "web",
 
-    //开发服务器
     devServer: {
-      //静态资源根目录
       contentBase: [
         path.resolve(__dirname, "dist"),
         path.resolve(__dirname, "rest-mock")
       ],
-      port: devPort, //端口
-      hot: true, //热更新
-      inline: true, //iframe 模式
-      historyApiFallback: true, //浏览器 history
+      port: devPort,
+      hot: true,
+      inline: true,
+      historyApiFallback: true,
       stats: {
-        //统计
-        colors: true, //输出有颜色的信息
-        errors: true, //显示错误信息
-        version: true, //显示版本号
-        warnings: true, //显示警告
-        progress: true, //显示进度,
-        timings: true //显示时间
+        cached: true,
+        colors: true,
+        errors: true, 
+        version: true, 
+        warnings: true, 
+        progress: true,
+        timings: true 
       },
-      open: true, //打开浏览器 替代open-plugin 插件
-      openPage: ""
+      open: true
     },
 
-    //入口
     entry: isDev
       ? [
-          "react-hot-loader/patch", //热更新
+          "react-hot-loader/patch",
           `webpack-dev-server/client?${host}:${devPort}`,
           "webpack/hot/only-dev-server",
           path.resolve(__dirname, "src/index.js")
@@ -53,7 +48,6 @@ module.exports = env => {
           app: path.resolve(__dirname, "src/index.js")
         },
 
-    //打包输出
     output: {
       path: path.resolve(__dirname, "dist"),
       filename: isDev ? "js/[name].js" : "js/[name].[chunkhash:8].js",
@@ -61,7 +55,6 @@ module.exports = env => {
       publicPath: isDev ? `${host}:${devPort}/` : "/"
     },
 
-    //模块加载器
     module: {
       rules: [
         {
@@ -72,12 +65,12 @@ module.exports = env => {
             }
           ],
           exclude: "/node_modules/",
-          include: [path.resolve("src")] //只遍历src目录下的
+          include: [path.resolve("src")]
         },
         {
           test: /\.less$/,
           use:
-            mode === "development" //开发环境 css打包到js中
+            mode === "development" 
               ? [
                   { loader: "style-loader" }, //loader 倒序执行  先执行 less-loader
                   {
@@ -98,7 +91,6 @@ module.exports = env => {
                   }
                 ]
               : ExtractTextPlugin.extract({
-                  //生产环境 把css单独分离出来
                   fallback: "style-loader",
                   use: [
                     "css-loader",
@@ -116,7 +108,7 @@ module.exports = env => {
           test: /\.css$/,
           use: isDev
             ? [
-                { loader: "style-loader" }, //loader 倒序执行  先执行 less-laoder
+                { loader: "style-loader" },
                 {
                   loader: "css-loader",
                   options: {
@@ -153,7 +145,7 @@ module.exports = env => {
             {
               loader: "file-loader",
               options: {
-                name: "images/[name][hash:8].[ext]" //遇到图片  生成一个images文件夹  名字.后缀的图片
+                name: "images/[name][hash:8].[ext]"
               }
             }
           ]
@@ -232,7 +224,6 @@ module.exports = env => {
               }
             }),
             new OptimizeCssAssetsPlugin({
-              //压缩css  与 ExtractTextPlugin 配合使用
               cssProcessor: require("cssnano"),
               cssProcessorOptions: { discardComments: { removeAll: true } }, //移除所有注释
               canPrint: true //是否向控制台打印消息
@@ -243,24 +234,20 @@ module.exports = env => {
     //插件
     plugins: []
   };
-  //根据开发环境不同  concat 不同的插件
   if (isDev) {
     options.plugins = options.plugins.concat([
-      new webpack.HotModuleReplacementPlugin() //热加载插件
+      new webpack.HotModuleReplacementPlugin()
     ]);
   } else {
     options.plugins = options.plugins.concat([
       new webpack.HashedModuleIdsPlugin(), //生成稳定的hashId 没有改变的chunk文件这样hash不会变
-      // 将打包文件中的css分离成一个单独的css文件
       new ExtractTextPlugin({
         filename: "css/[name].[chunkhash:8].css",
         allChunks: true
       }),
-      //loader 最小化
       new webpack.LoaderOptionsPlugin({
         minimize: true
       }),
-      //图片压缩
       new ImageminPlugin({
         test: /\.(jpe?g|png|gif|svg)$/i,
         pngquant: {

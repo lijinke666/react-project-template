@@ -51,13 +51,13 @@ export default class Home extends PureComponent {
             <Button
               icon="github"
               type="primary"
-              onClick={() => this.goGithub(repository.git)}
+              onClick={() => this.goGithub(repository?.git)}
             >
               Github
             </Button>
             <Divider>
               {name} By:{" "}
-              <a href={repository.git} target="_blank">
+              <a href={repository?.git} target="_blank">
                 {toolName}
               </a>
             </Divider>

@@ -1,6 +1,6 @@
 {
   "name": "dawdler-react-project-template",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "description": "react project template By:dawdler",
   "private": true,
   "main": "src/index.js",
@@ -93,6 +93,7 @@
     "@babel/plugin-proposal-optional-chaining": "^7.0.0",
     "@babel/plugin-proposal-pipeline-operator": "^7.0.0",
     "@babel/plugin-proposal-throw-expressions": "^7.0.0",
+    "@babel/plugin-syntax-do-expressions": "^7.0.0",
     "@babel/plugin-syntax-dynamic-import": "^7.0.0",
     "@babel/plugin-syntax-import-meta": "^7.0.0",
     "@babel/plugin-transform-async-to-generator": "^7.1.0",

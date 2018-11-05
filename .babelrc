@@ -16,6 +16,8 @@
     "@babel/plugin-transform-exponentiation-operator",
     "@babel/plugin-proposal-numeric-separator",
     "@babel/plugin-proposal-throw-expressions",
+    "@babel/plugin-syntax-do-expressions",
+    "@babel/plugin-proposal-optional-chaining",
     [
       "@babel/plugin-proposal-pipeline-operator",
       {
