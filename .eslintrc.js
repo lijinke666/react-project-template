@@ -17,6 +17,7 @@ module.exports = {
   globals: {
     process: true,
     __dirname: true,
+    jest: true,
   },
   rules: {
     "object-shorthand": "error",
