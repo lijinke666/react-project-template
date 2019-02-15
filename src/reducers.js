@@ -1,11 +1,13 @@
-//这里引入你所有的 reducer 进行合并
-
 import HomeReducer from "Home/reducer";
 
 import { combineReducers } from "redux";
+import { connectRouter } from "connected-react-router";
 
-const chatReducer = combineReducers({
+const reducers = {
   HomeReducer
-});
-
-export default chatReducer;
+};
+export default history =>
+  combineReducers({
+    router: connectRouter(history),
+    ...reducers
+  });

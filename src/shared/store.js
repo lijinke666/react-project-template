@@ -1,5 +1,5 @@
 import { createStore, applyMiddleware } from "redux";
-import { routerMiddleware, connectRouter } from "connected-react-router";
+import { routerMiddleware } from "connected-react-router";
 import { composeWithDevTools } from "redux-devtools-extension/developmentOnly";
 import { createLogger } from "redux-logger";
 import thunk from "redux-thunk";
@@ -10,13 +10,13 @@ const logger = createLogger({
   diff: true
 });
 
-import reducers from "reducers";
+import createRootReducer from "reducers";
 
 const configureStore = (initialState = {}) => {
   const middleware = [routerMiddleware(history), thunk, logger];
 
   return createStore(
-    connectRouter(history)(reducers),
+    createRootReducer(history),
     initialState,
     composeWithDevTools(applyMiddleware(...middleware))
   );
