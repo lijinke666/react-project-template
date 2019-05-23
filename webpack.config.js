@@ -1,10 +1,11 @@
 const path = require("path");
 const webpack = require("webpack");
-const HtmlWebpackPlugin = require("html-webpack-plugin"); 
-const ExtractTextPlugin = require("extract-text-webpack-plugin"); 
-const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin"); 
-const ImageminPlugin = require("imagemin-webpack-plugin").default; 
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const ImageminPlugin = require("imagemin-webpack-plugin").default;
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const { host, devPort } = require("./config");
 
@@ -28,25 +29,25 @@ module.exports = env => {
       stats: {
         cached: true,
         colors: true,
-        errors: true, 
-        version: true, 
-        warnings: true, 
+        errors: true,
+        version: true,
+        warnings: true,
         progress: true,
-        timings: true 
+        timings: true
       },
       open: true
     },
 
     entry: isDev
       ? [
-          "react-hot-loader/patch",
-          `webpack-dev-server/client?${host}:${devPort}`,
-          "webpack/hot/only-dev-server",
-          path.resolve(__dirname, "src/index.js")
-        ]
+        "react-hot-loader/patch",
+        `webpack-dev-server/client?${host}:${devPort}`,
+        "webpack/hot/only-dev-server",
+        path.resolve(__dirname, "src/index.js")
+      ]
       : {
-          app: path.resolve(__dirname, "src/index.js")
-        },
+        app: path.resolve(__dirname, "src/index.js")
+      },
 
     output: {
       path: path.resolve(__dirname, "dist"),
@@ -70,45 +71,9 @@ module.exports = env => {
         {
           test: /\.less$/,
           use:
-            mode === "development" 
+            mode === "development"
               ? [
-                  { loader: "style-loader" }, //loader 倒序执行  先执行 less-loader
-                  {
-                    loader: "css-loader",
-                    options: {
-                      javascriptEnabled: true,
-                      minimize: false,
-                      sourceMap: true
-                    }
-                  },
-                  {
-                    loader: "postcss-loader",
-                    options: { javascriptEnabled: true, sourceMap: true }
-                  }, //自动加前缀
-                  {
-                    loader: "less-loader",
-                    options: { javascriptEnabled: true, sourceMap: true }
-                  }
-                ]
-              : ExtractTextPlugin.extract({
-                  fallback: "style-loader",
-                  use: [
-                    "css-loader",
-                    { loader: "postcss-loader", options: { sourceMap: false } },
-                    {
-                      loader: "less-loader",
-                      options: {
-                        sourceMap: false
-                      }
-                    }
-                  ]
-                })
-        },
-        {
-          test: /\.css$/,
-          use: isDev
-            ? [
-                { loader: "style-loader" },
+                { loader: "style-loader" }, //loader 倒序执行  先执行 less-loader
                 {
                   loader: "css-loader",
                   options: {
@@ -120,16 +85,17 @@ module.exports = env => {
                 {
                   loader: "postcss-loader",
                   options: { javascriptEnabled: true, sourceMap: true }
+                }, //自动加前缀
+                {
+                  loader: "less-loader",
+                  options: { javascriptEnabled: true, sourceMap: true }
                 }
               ]
-            : ExtractTextPlugin.extract({
+              : ExtractTextPlugin.extract({
                 fallback: "style-loader",
                 use: [
                   "css-loader",
-                  {
-                    loader: "postcss-loader",
-                    options: { sourceMap: false }
-                  },
+                  { loader: "postcss-loader", options: { sourceMap: false } },
                   {
                     loader: "less-loader",
                     options: {
@@ -138,6 +104,41 @@ module.exports = env => {
                   }
                 ]
               })
+        },
+        {
+          test: /\.css$/,
+          use: isDev
+            ? [
+              { loader: "style-loader" },
+              {
+                loader: "css-loader",
+                options: {
+                  javascriptEnabled: true,
+                  minimize: false,
+                  sourceMap: true
+                }
+              },
+              {
+                loader: "postcss-loader",
+                options: { javascriptEnabled: true, sourceMap: true }
+              }
+            ]
+            : ExtractTextPlugin.extract({
+              fallback: "style-loader",
+              use: [
+                "css-loader",
+                {
+                  loader: "postcss-loader",
+                  options: { sourceMap: false }
+                },
+                {
+                  loader: "less-loader",
+                  options: {
+                    sourceMap: false
+                  }
+                }
+              ]
+            })
         },
         {
           test: /\.(jpg|jpeg|png|gif|cur|ico)$/,
@@ -177,7 +178,10 @@ module.exports = env => {
         path.resolve("."),
         path.resolve("src/shared"),
         "node_modules"
-      ]
+      ],
+      alias: {
+        '@ant-design/icons/lib/dist$': path.resolve(__dirname, 'src/icons.js')
+      }
     },
 
     //webpack4 相关升级配置
@@ -186,11 +190,13 @@ module.exports = env => {
       noEmitOnErrors: true,
       //代码分割
       splitChunks: {
+        chunks: 'all',
+        maxInitialRequests: Infinity,
+        minSize: 0,
         cacheGroups: {
           vendors: {
             test: /[\\/]node_modules[\\/]/,
-            name: "vendors",
-            chunks: "all"
+            name: "vendors"
           },
           commons: {
             name: "commons",
@@ -212,23 +218,23 @@ module.exports = env => {
       minimizer: isDev
         ? []
         : [
-            new UglifyJsPlugin({
-              cache: true,
-              parallel: true,
-              uglifyOptions: {
-                compress: {
-                  warnings: false,
-                  drop_debugger: true,
-                  drop_console: false
-                }
+          new UglifyJsPlugin({
+            cache: true,
+            parallel: true,
+            uglifyOptions: {
+              compress: {
+                warnings: false,
+                drop_debugger: true,
+                drop_console: false
               }
-            }),
-            new OptimizeCssAssetsPlugin({
-              cssProcessor: require("cssnano"),
-              cssProcessorOptions: { discardComments: { removeAll: true } }, //移除所有注释
-              canPrint: true //是否向控制台打印消息
-            })
-          ]
+            }
+          }),
+          new OptimizeCssAssetsPlugin({
+            cssProcessor: require("cssnano"),
+            cssProcessorOptions: { discardComments: { removeAll: true } }, //移除所有注释
+            canPrint: true //是否向控制台打印消息
+          })
+        ]
     },
 
     //插件
@@ -257,6 +263,7 @@ module.exports = env => {
     ]);
   }
   options.plugins.push(
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     new HtmlWebpackPlugin({
       title: "react-project-template",
       filename: "index.html",
@@ -264,5 +271,11 @@ module.exports = env => {
       hash: true
     })
   );
+
+  if(process.env.ENABLE_BUNDLE_ANALYZER) {
+    options.plugins.push(
+      new BundleAnalyzerPlugin(),
+    )
+  }
   return options;
 };
