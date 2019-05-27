@@ -12,7 +12,6 @@
     "@babel/plugin-syntax-dynamic-import",
     "@babel/plugin-proposal-object-rest-spread",
     "@babel/plugin-transform-async-to-generator",
-    "@babel/plugin-proposal-class-properties",
     "@babel/plugin-transform-exponentiation-operator",
     "@babel/plugin-proposal-numeric-separator",
     "@babel/plugin-proposal-throw-expressions",
@@ -30,6 +29,7 @@
         "legacy": true
       }
     ],
+    ["@babel/plugin-proposal-class-properties", { "loose": true }],
     "react-hot-loader/babel",
     "@babel/plugin-transform-runtime",
     ["import", {

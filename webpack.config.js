@@ -6,6 +6,7 @@ const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const ImageminPlugin = require("imagemin-webpack-plugin").default;
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const AutoDllPlugin = require('autodll-webpack-plugin')
 
 const { host, devPort } = require("./config");
 
@@ -268,7 +269,23 @@ module.exports = env => {
       title: "react-project-template",
       filename: "index.html",
       template: path.resolve(__dirname, "src/index.html"),
-      hash: true
+      hash: true,
+    }),
+    new AutoDllPlugin({
+      inject: true, // will inject the DLL bundles to index.html
+      filename: '[name].[chunkhash:8].js',
+      entry: {
+        vendor: [
+          'react',
+          'react-dom',
+          'moment',
+          'redux',
+          'react-redux',
+          'react-router',
+          'react-router-dom',
+          'redux-thunk',
+        ]
+      }
     })
   );
 

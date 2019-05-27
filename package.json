@@ -105,6 +105,7 @@
     "@babel/preset-react": "^7.0.0",
     "@babel/runtime": "^7.4.5",
     "add": "^2.0.6",
+    "autodll-webpack-plugin": "^0.4.2",
     "autoprefixer": "8.2.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^8.2.3",
