@@ -1,4 +1,4 @@
-import fetch from "libs/fetch";
+import request from "libs/request";
 export const TEST_ACTION = "test_action";
 
 /**
@@ -6,7 +6,7 @@ export const TEST_ACTION = "test_action";
  */
 export default (params = {}) => dispatch => {
   setTimeout(async () => {
-    const data = await fetch.getMockJson("/dawdler.json");
+    const { data } = await request.get("/dawdler.json");
     dispatch({
       type: TEST_ACTION,
       data,

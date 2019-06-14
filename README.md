@@ -59,23 +59,15 @@ yarn add --dev babel-core@7.0.0-0 @babel/core babel-jest
 
 ## 网络请求
 
-> 基于 window.fetch 和 axios 封装
+> 基于 axios 封装
 
 ```js
-import fetch from "libs/fetch"
+import request from "libs/request"
 
-/**
- * @param {String} URL  请求地址
- * @param {Object} PARAMS  请求参数
- * @return response
- */
-//window.fetch
-await fetch.getMockJson(URL,PARAMS)
-await fetch.postMockJson(URL,PARAMS)
-
-//axios
-await fetch.get(URL,PARAMS)
-await fetch.post(URL,PARAMS)
+request.get()
+request.post()
+request.put()
+request.delete()
 ```
 
 ## 默认高阶组件
@@ -135,7 +127,7 @@ export default class App extends React.PureComponent {
         * [Container 内置 1200px 居中 组件 如不喜欢 可删除](#container--------内置1200px-居中-组件-如不喜欢-可删除)
         * [ErrorBoundary 错误边界](#ErrorBoundary--------错误边界)
       * [libs 第三方库 和自己写的工具 js](#libs--------------第三方库-和自己写的工具-js)
-        * [fetch.js 网络请求](#helperjs--------网络请求)
+        * [request.js 网络请求](#requestjs--------网络请求)
         * [routes.js 项目的路由配置文件](#routesjs--------项目的路由配置文件)
       * [middleware redux 自定义中间键](#middleware-------------redux自定义中间键)
       * [styles 项目公用样式](#styles------------项目公用样式)
