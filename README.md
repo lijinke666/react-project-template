@@ -40,6 +40,7 @@ npm start
 * react-router@4
 * react-redux@5
 * antd@3
+* docker
 
 ## 关于 jest
 > 由于使用的babel7 为了保持兼容 安装了一个
