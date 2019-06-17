@@ -1,4 +1,5 @@
 # react-project-template
+
 [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
 
 react+redux+ES6+webpack@4.X+babel@7.x 项目模板,支持按需加载 <br/>
@@ -99,57 +100,92 @@ export default class App extends React.PureComponent {
 
 ## 项目目录
 
-<!-- TOC -->
+```
 
-* [React-Project-Template](#react-project-template)
-  * [fonts](#fonts)
-    * [你的字体文件](#你的字体文件)
-  * [images](#images)
-    * [xx.jpg 你的图片](#xxjpg-你的图片)
-  * [rest-mock](#rest-mock)
-    * [xx.json 模拟数据](#xxjson-模拟数据)
-  * [src](#src)
-    * [app](#app)
-      * [components](#components)
-        * [NotFound 404 组件](#NotFound-----404组件)
-      * [routes 路由](#routes------------路由)
-        * [xx.js 你的路由文件](#xxjs------------你的路由文件)
-      * [index.js 项目路由文件](#indexjs----------项目路由文件)
-      * [testPage.js 查看编写好的公用组件效果路由文件](#testPage.js-----------查看编写好的公用组件效果路由文件)
-    * [Home 主页](#home---------------主页)
-      * [action action](#action------------action)
-        * [index.js 主页对应的 action](#indexjs---------主页对应的action)
-      * [reducer reducer](#reducer-----------reducer)
-        * [index.js 主页对应的 reducer](#indexjs---------主页对应的reducer)
-      * [index.js 主页的 js](#indexjs----------主页的js)
-      * [styles.less 主页的样式](#stylesless-------主页的样式)
-    * [shared 公用模块](#shared-------------公用模块)
-      * [components 公用组件](#components--------公用组件)
-        * [Container 内置 1200px 居中 组件 如不喜欢 可删除](#container--------内置1200px-居中-组件-如不喜欢-可删除)
-        * [ErrorBoundary 错误边界](#ErrorBoundary--------错误边界)
-      * [libs 第三方库 和自己写的工具 js](#libs--------------第三方库-和自己写的工具-js)
-        * [request.js 网络请求](#requestjs--------网络请求)
-        * [routes.js 项目的路由配置文件](#routesjs--------项目的路由配置文件)
-      * [middleware redux 自定义中间键](#middleware-------------redux自定义中间键)
-      * [styles 项目公用样式](#styles------------项目公用样式)
-        * [fonts.less 项目字体](#fontsless-------项目字体)
-        * [mixin.less 项目 less 公用方法](#mixinless-------项目-less-公用方法)
-        * [vars.less 项目 less 变量定义](#varsless--------项目-less-变量定义)
-      * [store.js 项目的 全局 store](#storejs----------项目的-全局-store)
-    * [index.html 项目模板 html](#indexhtml---------项目模板-html)
-    * [index.js 入口文件](#indexjs-----------入口文件)
-    * [reducers.js 所有的 reducers](#reducersjs--------所有的-reducers)
-    * [style.less 基础的 css 设置](#styleless---------基础的-css-设置)
-  * [.babelrc babel 插件配置](#babelrc------------babel-插件配置)
-  * [.gitgnore git 忽略文件配置](#gitgnore-----------git-忽略文件配置)
-  * [LICENTSE 项目开源协议](#licentse------------项目开源协议)
-  * [package.json 包依赖](#packagejson--------包依赖)
-  * [postcss.config.js postcss 配置](#postcssconfigjs---postcss-配置)
-  * [README.md](#readmemd)
-  * [webpack.config.js webpack 配置文件](#webpackconfigjs---webpack配置文件)
-  * [yarn.lock yarn 锁文件](#yarnlock-----------yarn-锁文件)
+├── Dockerfile
+├── LICENSE
+├── README.md
+├── __tests__
+│   ├── __mocks__
+│   │   ├── fileMock.js
+│   │   └── styleMock.js
+│   ├── setup.js
+│   └── tests
+│       ├── __snapshots__
+│       │   └── components.test.js.snap
+│       └── components.test.js
+├── config
+│   ├── development.config.js
+│   ├── http.config.js
+│   ├── index.js
+│   └── production.config.js
+├── deploy
+│   ├── app.conf
+│   └── nginx.conf
+├── dist
+│   ├── css
+│   │   ├── app.a759184c.css
+│   │   └── runtime.99a9ba82.css
+│   ├── images
+│   │   └── logo8501194e.png
+│   ├── index.html
+│   ├── js
+│   │   ├── 5.e1db4215.js
+│   │   ├── app.a759184c.js
+│   │   ├── home.026a90d5.js
+│   │   ├── runtime.99a9ba82.js
+│   │   ├── testPage.8d9b912c.js
+│   │   └── vendors.1fe3c3e5.js
+│   └── vendor.b740a114.js
+├── logo.png
+├── package.json
+├── postcss.config.js
+├── rest-mock
+│   └── dawdler.json
+├── src
+│   ├── Home
+│   │   ├── action
+│   │   │   └── index.js
+│   │   ├── index.js
+│   │   ├── reducer
+│   │   │   └── index.js
+│   │   └── styles.less
+│   ├── app
+│   │   ├── components
+│   │   │   └── NotFound
+│   │   │       ├── index.js
+│   │   │       └── styles.less
+│   │   ├── index.js
+│   │   ├── styles.less
+│   │   └── testPage.js
+│   ├── icons.js
+│   ├── index.html
+│   ├── index.js
+│   ├── polyfills.js
+│   ├── reducers.js
+│   ├── shared
+│   │   ├── components
+│   │   │   ├── Container
+│   │   │   │   ├── index.js
+│   │   │   │   └── index.less
+│   │   │   └── ErrorBoundary
+│   │   │       └── index.js
+│   │   ├── libs
+│   │   │   ├── component.js
+│   │   │   ├── history.js
+│   │   │   ├── request.js
+│   │   │   └── routes.js
+│   │   ├── middleware
+│   │   ├── store.js
+│   │   └── styles
+│   │       ├── fonts.less
+│   │       ├── mixin.less
+│   │       └── vars.less
+│   └── style.less
+├── webpack.config.js
+└── yarn.lock
 
-<!-- /TOC -->
+```
 
 ## License
 
