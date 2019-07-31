@@ -151,7 +151,7 @@
     "webpack-bundle-analyzer": "^3.3.2",
     "webpack-cli": "^3.3.2",
     "webpack-dev-server": "3.4.1",
-    "yarn": "^1.16.0"
+    "yarn": "^1.17.3"
   },
   "jest": {
     "moduleFileExtensions": [
