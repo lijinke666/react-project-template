@@ -1,8 +1,21 @@
 import { lazy } from "react";
 
-const Home = lazy(() => import(/* webpackChunkName: "home" */ "Home")); //主页
-const TestPage = lazy(() =>
-  import(/* webpackChunkName: "testPage" */ "app/testPage")
-); //测试组件路由
+const Home = lazy(() => import(/* webpackChunkName: "home" */ "Home"));
 
-export { Home, TestPage };
+export const routes = [
+  {
+    path: "/",
+    component: Home,
+    text: "首页",
+    children: []
+  }
+];
+
+export const getAllFlattenRoutes = (routers = routes) => {
+  return routers.reduce((prev, curr) => {
+    return prev.concat(
+      curr,
+      Array.isArray(curr.children) ? getAllFlattenRoutes(curr.children) : []
+    );
+  }, []);
+};

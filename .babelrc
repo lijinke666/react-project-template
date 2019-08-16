@@ -32,10 +32,13 @@
     ["@babel/plugin-proposal-class-properties", { "loose": true }],
     "react-hot-loader/babel",
     "@babel/plugin-transform-runtime",
-    ["import", {
-      "libraryName": "antd",
-      "libraryDirectory": "es",
-      "style": true
-    }]
+    [
+      "import",
+      {
+        "libraryName": "antd",
+        "libraryDirectory": "es",
+        "style": true
+      }
+    ]
   ]
 }
