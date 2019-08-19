@@ -265,11 +265,8 @@ module.exports = () => {
           'react',
           'react-dom',
           'moment',
-          'redux',
-          'react-redux',
           'react-router',
-          'react-router-dom',
-          'redux-thunk'
+          'react-router-dom'
         ]
       }
     })

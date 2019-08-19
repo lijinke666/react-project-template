@@ -1,14 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Provider } from "react-redux";
-
-import { LocaleProvider } from "antd";
+import { ConfigProvider } from "antd";
 import zhCN from "antd/lib/locale-provider/zh_CN";
 import moment from "moment";
 import "moment/locale/zh-cn";
 
 import App from "app";
-import store from "store";
 import "normalize.css";
 import "./style.less";
 
@@ -16,11 +13,9 @@ moment.locale("zh-cn");
 
 const render = Component => {
   ReactDOM.render(
-    <Provider store={store}>
-      <LocaleProvider locale={zhCN}>
-        <Component />
-      </LocaleProvider>
-    </Provider>,
+    <ConfigProvider locale={zhCN}>
+      <Component />
+    </ConfigProvider>,
     document.getElementById("root")
   );
 };

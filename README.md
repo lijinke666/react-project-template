@@ -2,7 +2,7 @@
 
 [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest)
 
-react+redux+ES6+webpack@4.X+babel@7.x 项目模板,支持按需加载 <br/>
+react+hooks+ES6+webpack@4.X+babel@7.x 项目模板,支持按需加载 <br/>
 
 也可以通过脚手架直接生成 [https://github.com/lijinke666/dawdler](https://github.com/lijinke666/dawdler) <br/>
 
@@ -32,11 +32,9 @@ npm start
 ## 相关技术栈
 
 * react@16
-* redux@4
 * webpack@4
 * babel@7
 * connected-react-router@4
-* redux-thunk@2
 * react-router-dom@4
 * react-router@4
 * react-redux@5
@@ -144,11 +142,7 @@ export default class App extends React.PureComponent {
 │   └── dawdler.json
 ├── src
 │   ├── Home
-│   │   ├── action
-│   │   │   └── index.js
 │   │   ├── index.js
-│   │   ├── reducer
-│   │   │   └── index.js
 │   │   └── styles.less
 │   ├── app
 │   │   ├── components
@@ -157,12 +151,10 @@ export default class App extends React.PureComponent {
 │   │   │       └── styles.less
 │   │   ├── index.js
 │   │   ├── styles.less
-│   │   └── testPage.js
 │   ├── icons.js
 │   ├── index.html
 │   ├── index.js
 │   ├── polyfills.js
-│   ├── reducers.js
 │   ├── shared
 │   │   ├── components
 │   │   │   ├── Container
@@ -175,8 +167,6 @@ export default class App extends React.PureComponent {
 │   │   │   ├── history.js
 │   │   │   ├── request.js
 │   │   │   └── routes.js
-│   │   ├── middleware
-│   │   ├── store.js
 │   │   └── styles
 │   │       ├── fonts.less
 │   │       ├── mixin.less

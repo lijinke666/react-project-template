@@ -1,14 +1,16 @@
 language: node_js
 
 node_js:
-  - "8"
-  - "9"
+  - '12'
 
 sudo: false
 
+services:
+  - docker
+
 branches:
-   only:
-   - master
+  only:
+    - master
 
 before_install:
   - curl -o- -L https://yarnpkg.com/install.sh | bash
@@ -17,7 +19,17 @@ before_install:
 cache:
   yarn: true
   directories:
-    - ".eslintcache"
-    - "node_modules"
+    - '.eslintcache'
+    - 'node_modules'
 
-after_script: "yarn run ci"
+script:
+  - yarn
+  - yarn lint
+  - yarn test
+  - yarn ci:coverage
+  - yarn build
+
+after_script:
+  - docker build -t jinkeli/react-project ./
+  - docker login -u $DOCKER_USER -p $DOCKER_PASS
+  - docker push jinkeli/react-project

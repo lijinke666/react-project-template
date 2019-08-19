@@ -14,7 +14,7 @@
     "lint": "prettier --write \"src/**/*.js\" && eslint_d --fix src",
     "test": "jest __tests__/tests",
     "coverage": "npm run test -- --coverage",
-    "ci": "npm run coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+    "ci:coverage": "npm run coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "pre-commit": "lint",
   "lint-staged": {
@@ -59,7 +59,6 @@
     "antd": "latest",
     "axios": "^0.18.1",
     "classnames": "^2.2.6",
-    "connected-react-router": "^6.3.1",
     "core-js": "^3.1.2",
     "history": "^4.7.2",
     "js-cookie": "^2.2.0",
@@ -68,13 +67,10 @@
     "nprogress": "^0.2.0",
     "prop-types": "^15.7.2",
     "qs": "^6.6.0",
-    "react": "^16.8.2",
-    "react-dom": "^16.8.2",
-    "react-redux": "^6.0.0",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
-    "redux": "^4.0.1",
-    "redux-thunk": "^2.3.0",
     "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {
