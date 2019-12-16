@@ -1,80 +1,16 @@
-//定义一些公用class
-@import "vars.less";
-.clearfix(){
-  &::before,&::after{
-    clear:both;
-    content:"";
-    display: table;
-    zoom: 1;
-  }
-}
-.hidden(){
-  display: none !important;
-}
-.hidden{
-  .hidden();
-}
-.color-white,.white-color{
-  color:#fff;
-}
-.primary-color{ color:@primary-color}
-.orange-color{ color:@orange-color}
-.warning-color{ color:@warning-color}
-.error-color{ color:@error-color}
-.success-color{ color:@success-color}
-.info-color{ color:@info-color}
-.title-color{ color:@title-color}
+@import 'vars.less';
 
-.text-center(){
-  text-align: center
-}
-.text-center{
-  text-align: center;
-}
-.text-left{
-  text-align:left;
-}
-.text-right{
-  text-align: right;
-}
-.transition(@time:.3s){
-  transition: all @time cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-.center(){
-  display: flex;
+.ellipsis-n(@n:2) {
+  -webkit-line-clamp: @n;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
   justify-content: center;
-  align-items: center;
-}
-.img-response {
-  width:100%;
-  display: block;
-}
-.btn-hover(@color:@default-color,@lighten:3%,@font-color:#fff){
-    color:@font-color;
-    background-color: @color;
-    border:1px solid @color;
-    &:hover,&:active{
-        background-color: lighten(@color,@lighten)
-    }
 }
 
-.ellipsis-n(@n:2){
-    -webkit-line-clamp:@n;
-    display:-webkit-box;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    justify-content: center;
-}
-.ellipsis-1(){
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-}
-.link-active{
-  position: absolute;
-  left:0;
-  bottom:0;
-  width:100%;
-  height:100%;
+.ellipsis-1() {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
