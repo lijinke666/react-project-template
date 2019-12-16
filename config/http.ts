@@ -4,7 +4,7 @@ export const HTTP_CODE: Record<string, number> = {
   TIMEOUT: 503,
   NOTFOUND: 404,
   UNAUTHORIZED: 401,
-};
+}
 
 export const HTTP_RES_MESSAGES: Record<number, string> = {
   [HTTP_CODE.SUCCESS]: '接口请求成功',
@@ -12,4 +12,4 @@ export const HTTP_RES_MESSAGES: Record<number, string> = {
   [HTTP_CODE.TIMEOUT]: '网络不给力,请求超时',
   [HTTP_CODE.NOTFOUND]: '接口404',
   [HTTP_CODE.UNAUTHORIZED]: '无权限',
-};
+}

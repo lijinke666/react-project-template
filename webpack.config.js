@@ -1,15 +1,15 @@
-const path = require('path');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
-const AutoDllPlugin = require('autodll-webpack-plugin');
-const ProgressBarPlugin = require('progress-bar-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const Dotenv = require('dotenv-webpack');
+const path = require('path')
+const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
+const AutoDllPlugin = require('autodll-webpack-plugin')
+const ProgressBarPlugin = require('progress-bar-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const Dotenv = require('dotenv-webpack')
 
-const isDev = process.env.NODE_ENV === 'development';
+const isDev = process.env.NODE_ENV === 'development'
 const port = process.env.PORT || 3000
 const host = process.env.HOST || 'localhost'
 
@@ -136,7 +136,12 @@ module.exports = () => {
     resolve: {
       enforceExtension: false,
       extensions: ['.js', '.jsx', '.json', '.less', '.css', '.ts', '.tsx'],
-      modules: [path.resolve('src'), path.resolve('.'), path.resolve('src/shared'), 'node_modules'],
+      modules: [
+        path.resolve('src'),
+        path.resolve('.'),
+        path.resolve('src/shared'),
+        'node_modules',
+      ],
     },
 
     // webpack4 相关升级配置
@@ -192,9 +197,11 @@ module.exports = () => {
     },
 
     plugins: [],
-  };
+  }
   if (isDev) {
-    options.plugins = options.plugins.concat([new webpack.HotModuleReplacementPlugin()]);
+    options.plugins = options.plugins.concat([
+      new webpack.HotModuleReplacementPlugin(),
+    ])
   } else {
     options.plugins = options.plugins.concat([
       new webpack.HashedModuleIdsPlugin(),
@@ -205,7 +212,7 @@ module.exports = () => {
       new webpack.LoaderOptionsPlugin({
         minimize: true,
       }),
-    ]);
+    ])
   }
   options.plugins.push(
     new Dotenv(),
@@ -228,13 +235,19 @@ module.exports = () => {
       inject: true, // will inject the DLL bundles to index.html
       filename: '[name].[contenthash].js',
       entry: {
-        vendor: ['react', 'react-dom', 'moment', 'react-router', 'react-router-dom'],
+        vendor: [
+          'react',
+          'react-dom',
+          'moment',
+          'react-router',
+          'react-router-dom',
+        ],
       },
     }),
-  );
+  )
 
   if (process.env.ENABLE_BUNDLE_ANALYZER) {
-    options.plugins.push(new BundleAnalyzerPlugin());
+    options.plugins.push(new BundleAnalyzerPlugin())
   }
-  return options;
-};
+  return options
+}

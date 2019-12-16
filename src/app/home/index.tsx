@@ -1,11 +1,11 @@
-import React, { useCallback } from 'react';
-import { Divider, Button } from 'antd';
-import './index.less';
+import React, { useCallback } from 'react'
+import { Divider, Button } from 'antd'
+import './index.less'
 
 const Home = () => {
   const goGithub = useCallback(() => {
-    location.href = 'https://github.com/lijinke666/dawdler.git';
-  }, []);
+    location.href = 'https://github.com/lijinke666/dawdler.git'
+  }, [])
   return (
     <>
       <h2>
@@ -26,7 +26,7 @@ const Home = () => {
         </a>
       </Divider>
     </>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home
