@@ -1,16 +1,14 @@
-@import 'vars.less';
+@import './vars.less';
 
 .ellipsis-n(@n:2) {
-  -webkit-line-clamp: @n;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  justify-content: center;
-}
-
-.ellipsis-1() {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
+  & when ( @n >= 2 ) {
+    display: -webkit-box;
+    -webkit-line-clamp: @n;
+    -webkit-box-orient: vertical;
+  }
+  & when ( @n = 1 ) {
+    white-space: nowrap;
+  }
 }

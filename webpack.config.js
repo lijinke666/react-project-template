@@ -2,22 +2,46 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
-const AutoDllPlugin = require('autodll-webpack-plugin')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const Dotenv = require('dotenv-webpack')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const WebpackNotifierPlugin = require('webpack-notifier')
+const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const EsBuildWebpackPlugin = require('esbuild-webpack-plugin').default
+
+const smp = new SpeedMeasurePlugin()
+const { name } = require('./package.json')
 
 const isDev = process.env.NODE_ENV === 'development'
 const port = process.env.PORT || 3000
-const host = process.env.HOST || 'localhost'
+const host = process.env.HOST || 'http://localhost'
+
+const styleLoaders = [
+  {
+    loader: 'css-loader',
+    options: {
+      importLoaders: 1,
+    },
+  },
+  {
+    loader: 'postcss-loader',
+    options: { javascriptEnabled: true, sourceMap: isDev },
+  },
+  {
+    loader: 'less-loader',
+    options: {
+      sourceMap: isDev,
+      javascriptEnabled: true,
+    },
+  },
+]
 
 module.exports = () => {
   const options = {
-    mode: process.env.NODE_ENV || 'development',
-    target: 'web',
-
+    mode: process.env.NODE_ENV || 'production',
+    devtool: isDev ? 'cheap-module-eval-source-map' : false,
     devServer: {
       stats: {
         cached: true,
@@ -35,7 +59,7 @@ module.exports = () => {
     entry: isDev
       ? [
           'react-hot-loader/patch',
-          `webpack-dev-server/client?http://${host}:${port}`,
+          `webpack-dev-server/client?${host}:${port}`,
           'webpack/hot/only-dev-server',
           path.resolve(__dirname, 'src/index.tsx'),
         ]
@@ -65,57 +89,8 @@ module.exports = () => {
         {
           test: /\.(le|c)ss$/,
           use: isDev
-            ? [
-                { loader: 'style-loader' },
-                {
-                  loader: 'css-loader',
-                  options: {
-                    importLoaders: 1,
-                  },
-                },
-
-                {
-                  loader: 'postcss-loader',
-                  options: { javascriptEnabled: true, sourceMap: true },
-                },
-                {
-                  loader: 'less-loader',
-                  options: {
-                    sourceMap: false,
-                    javascriptEnabled: true,
-                    modifyVars: {
-                      'primary-color': '#17233E',
-                      'link-color': '#17233E',
-                    },
-                  },
-                },
-              ]
-            : ExtractTextPlugin.extract({
-                fallback: 'style-loader',
-                use: [
-                  {
-                    loader: 'css-loader',
-                    options: {
-                      importLoaders: 1,
-                    },
-                  },
-                  {
-                    loader: 'postcss-loader',
-                    options: { javascriptEnabled: true, sourceMap: false },
-                  },
-                  {
-                    loader: 'less-loader',
-                    options: {
-                      sourceMap: false,
-                      javascriptEnabled: true,
-                      modifyVars: {
-                        'primary-color': '#17233E',
-                        'link-color': '#17233E',
-                      },
-                    },
-                  },
-                ],
-              }),
+            ? styleLoaders
+            : [MiniCssExtractPlugin.loader, ...styleLoaders],
         },
         {
           test: /\.(jpg|jpeg|png|gif|cur|ico|eot|ttf|svg|woff|woff2)$/,
@@ -132,7 +107,6 @@ module.exports = () => {
       ],
     },
 
-    // 自动补全后缀
     resolve: {
       enforceExtension: false,
       extensions: ['.js', '.jsx', '.json', '.less', '.css', '.ts', '.tsx'],
@@ -142,13 +116,16 @@ module.exports = () => {
         path.resolve('src/shared'),
         'node_modules',
       ],
+      alias: {
+        'react-dom': '@hot-loader/react-dom',
+      },
+      // 优先找第三方依赖的 es module 更好的 tree shaking
+      mainFields: ['jsnext:main', 'browser', 'main'],
     },
 
-    // webpack4 相关升级配置
     optimization: {
       concatenateModules: true,
       noEmitOnErrors: true,
-      // 代码分割
       splitChunks: {
         chunks: 'all',
         maxInitialRequests: Infinity,
@@ -178,16 +155,7 @@ module.exports = () => {
       minimizer: isDev
         ? []
         : [
-            new UglifyJsPlugin({
-              cache: true,
-              parallel: true,
-              uglifyOptions: {
-                compress: {
-                  drop_debugger: true,
-                  drop_console: false,
-                },
-              },
-            }),
+            new EsBuildWebpackPlugin(),
             new OptimizeCssAssetsPlugin({
               cssProcessor: require('cssnano'),
               cssProcessorOptions: { discardComments: { removeAll: true } },
@@ -201,13 +169,14 @@ module.exports = () => {
   if (isDev) {
     options.plugins = options.plugins.concat([
       new webpack.HotModuleReplacementPlugin(),
+      new WebpackNotifierPlugin({ title: name }),
     ])
   } else {
     options.plugins = options.plugins.concat([
       new webpack.HashedModuleIdsPlugin(),
-      new ExtractTextPlugin({
-        filename: '[name].[chunkhash:8].css',
-        allChunks: true,
+      new MiniCssExtractPlugin({
+        filename: '[name].[hash].css',
+        chunkFilename: '[name].[hash].css',
       }),
       new webpack.LoaderOptionsPlugin({
         minimize: true,
@@ -215,12 +184,14 @@ module.exports = () => {
     ])
   }
   options.plugins.push(
+    new CleanWebpackPlugin(),
     new Dotenv(),
     new ProgressBarPlugin(),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
     }),
+    new webpack.NamedModulesPlugin(),
     new webpack.LoaderOptionsPlugin({
       minimize: true,
     }),
@@ -231,23 +202,11 @@ module.exports = () => {
       template: path.resolve(__dirname, 'src/index.html'),
       hash: true,
     }),
-    new AutoDllPlugin({
-      inject: true, // will inject the DLL bundles to index.html
-      filename: '[name].[contenthash].js',
-      entry: {
-        vendor: [
-          'react',
-          'react-dom',
-          'moment',
-          'react-router',
-          'react-router-dom',
-        ],
-      },
-    }),
   )
 
   if (process.env.ENABLE_BUNDLE_ANALYZER) {
     options.plugins.push(new BundleAnalyzerPlugin())
   }
-  return options
+
+  return smp.wrap(options)
 }

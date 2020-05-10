@@ -7,7 +7,7 @@ import axios, {
 } from 'axios'
 import { message } from 'antd'
 import NProgress from 'nprogress'
-import { HTTP_RES_MESSAGES } from '../../../config/http'
+import { HTTP_RESPONSE_MESSAGES } from '../../../config/http'
 import 'nprogress/nprogress.css'
 
 const baseConfig = {
@@ -25,7 +25,7 @@ const Api = axios.create({
 function handleError(error: AxiosError) {
   if (error.response) {
     const { status } = error.response
-    message.error(HTTP_RES_MESSAGES[status] || '网络异常,请稍后重试')
+    message.error(HTTP_RESPONSE_MESSAGES[status] || '网络异常,请稍后重试')
   } else {
     message.error('网络请求失败')
   }
@@ -46,7 +46,7 @@ const responseMiddleware = (response: AxiosResponse) => {
 }
 
 const createInterceptors = (instances: AxiosInstance[]) => {
-  instances.forEach(instance => {
+  instances.forEach((instance) => {
     instance.interceptors.request.use(requestMiddleware, handleError)
     instance.interceptors.response.use(responseMiddleware, handleError)
   })

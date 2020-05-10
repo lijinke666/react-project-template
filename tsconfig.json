@@ -4,7 +4,7 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "jsx": "react",
-    "declaration": true,
+    "declaration": false,
     "pretty": true,
     "sourceMap": false,
     "strict": true,
@@ -14,9 +14,8 @@
     "noImplicitReturns": true,
     "noImplicitAny": false,
     "noFallthroughCasesInSwitch": true,
-    "outDir": "lib",
-    "lib": ["es2018", "dom"]
+    "outDir": "./dist",
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "lib", "**/__tests__/**/*", ".history"]
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules", ".history"]
 }

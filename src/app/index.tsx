@@ -1,25 +1,32 @@
-import React, { Suspense } from 'react'
-import { hot } from 'react-hot-loader/root'
-import { Switch, Route, Redirect } from 'react-router-dom'
-import { Skeleton } from 'antd'
-import Home from './home'
-
+import React, { useCallback } from 'react'
+import { Divider, Button } from 'antd'
 import './index.less'
 
-const App = () => {
+const Home = () => {
+  const goGithub = useCallback(() => {
+    location.href = 'https://github.com/lijinke666/dawdler.git'
+  }, [])
   return (
-    <Suspense fallback={<Skeleton active />}>
-      <Switch>
-        <Route path="/" component={Home} />
-        <Route
-          path="*"
-          render={() => {
-            return <Redirect to="/" />
-          }}
-        />
-      </Switch>
-    </Suspense>
+    <>
+      <h2>
+        Hey ! Thank you for using {'  '}
+        <strong className="name">dawdler</strong>
+      </h2>
+      <Button icon="github" type="primary" onClick={goGithub}>
+        Github
+      </Button>
+      <Divider>
+        {name} By:{' '}
+        <a
+          href="https://github.com/lijinke666/dawdler.git"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          dawdler
+        </a>
+      </Divider>
+    </>
   )
 }
 
-export default hot(App)
+export default Home
