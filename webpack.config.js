@@ -9,9 +9,10 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const WebpackNotifierPlugin = require('webpack-notifier')
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const DashboardPlugin = require('webpack-dashboard/plugin')
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 const EsBuildWebpackPlugin = require('esbuild-webpack-plugin').default
 
-const smp = new SpeedMeasurePlugin()
 const { name } = require('./package.json')
 
 const isDev = process.env.NODE_ENV === 'development'
@@ -53,6 +54,7 @@ module.exports = () => {
       inline: true,
       historyApiFallback: true,
       open: true,
+      quiet: true,
       publicPath: '/',
     },
 
@@ -154,14 +156,7 @@ module.exports = () => {
       },
       minimizer: isDev
         ? []
-        : [
-            new EsBuildWebpackPlugin(),
-            new OptimizeCssAssetsPlugin({
-              cssProcessor: require('cssnano'),
-              cssProcessorOptions: { discardComments: { removeAll: true } },
-              canPrint: true,
-            }),
-          ],
+        : [new EsBuildWebpackPlugin(), new OptimizeCssAssetsPlugin()],
     },
 
     plugins: [],
@@ -170,6 +165,17 @@ module.exports = () => {
     options.plugins = options.plugins.concat([
       new webpack.HotModuleReplacementPlugin(),
       new WebpackNotifierPlugin({ title: name }),
+      new FriendlyErrorsWebpackPlugin({
+        compilationSuccessInfo: {
+          messages: [
+            `You application is running here http://localhost:${port}`,
+          ],
+          notes: [
+            'Some additional notes to be displayed upon successful compilation',
+          ],
+        },
+      }),
+      new DashboardPlugin(),
     ])
   } else {
     options.plugins = options.plugins.concat([
@@ -205,8 +211,10 @@ module.exports = () => {
   )
 
   if (process.env.ENABLE_BUNDLE_ANALYZER) {
+    const smp = new SpeedMeasurePlugin()
     options.plugins.push(new BundleAnalyzerPlugin())
+    return smp.wrap(options)
   }
 
-  return smp.wrap(options)
+  return options
 }
