@@ -36,7 +36,7 @@ module.exports = {
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     camelcase: 0,
-    'import/order': 'warn',
+    'import/order': 'error',
     'react/jsx-one-expression-per-line': 0,
     'react/prop-types': 0,
     'react/forbid-prop-types': 0,

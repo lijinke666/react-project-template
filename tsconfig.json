@@ -5,7 +5,7 @@
     "jsx": "react",
     "declaration": false,
     "pretty": true,
-    "sourceMap": false,
+    "sourceMap": true,
     "strict": true,
     "strictNullChecks": true,
     "esModuleInterop": true,
@@ -15,8 +15,11 @@
     "noImplicitAny": false,
     "removeComments": true,
     "noFallthroughCasesInSwitch": true,
+    "allowJs": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
     "lib": ["es2018", "dom"]
   },
-  "include": ["./src/**/*"],
+  "include": ["./src"],
   "exclude": ["node_modules", ".history"]
 }

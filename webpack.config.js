@@ -55,7 +55,7 @@ module.exports = () => {
       historyApiFallback: true,
       open: true,
       quiet: true,
-      publicPath: '/',
+      publicPath: isDev ? '' : '/',
     },
 
     entry: isDev
@@ -79,20 +79,19 @@ module.exports = () => {
     module: {
       rules: [
         {
-          test: /\.(j|t)s[x]?$/,
-          use: [
-            {
-              loader: 'awesome-typescript-loader',
+          test: /\.tsx?$/,
+          use: {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true,
             },
-          ],
+          },
           exclude: '/node_modules/',
           include: [path.resolve('src')],
         },
         {
           test: /\.(le|c)ss$/,
-          use: isDev
-            ? styleLoaders
-            : [MiniCssExtractPlugin.loader, ...styleLoaders],
+          use: isDev ? styleLoaders : [MiniCssExtractPlugin.loader, ...styleLoaders],
         },
         {
           test: /\.(jpg|jpeg|png|gif|cur|ico|eot|ttf|svg|woff|woff2)$/,
@@ -112,15 +111,10 @@ module.exports = () => {
     resolve: {
       enforceExtension: false,
       extensions: ['.js', '.jsx', '.json', '.less', '.css', '.ts', '.tsx'],
-      modules: [
-        path.resolve('src'),
-        path.resolve('.'),
-        path.resolve('src/shared'),
-        'node_modules',
-      ],
-      alias: {
-        'react-dom': '@hot-loader/react-dom',
-      },
+      modules: [path.resolve('src'), path.resolve('.'), path.resolve('src/shared'), 'node_modules'],
+      // alias: {
+      //   'react-dom': '@hot-loader/react-dom',
+      // },
       // 优先找第三方依赖的 es module 更好的 tree shaking
       mainFields: ['jsnext:main', 'browser', 'main'],
     },
@@ -154,9 +148,7 @@ module.exports = () => {
       runtimeChunk: {
         name: 'runtime',
       },
-      minimizer: isDev
-        ? []
-        : [new EsBuildWebpackPlugin(), new OptimizeCssAssetsPlugin()],
+      minimizer: isDev ? [] : [new EsBuildWebpackPlugin(), new OptimizeCssAssetsPlugin()],
     },
 
     plugins: [],
@@ -167,12 +159,8 @@ module.exports = () => {
       new WebpackNotifierPlugin({ title: name }),
       new FriendlyErrorsWebpackPlugin({
         compilationSuccessInfo: {
-          messages: [
-            `You application is running here http://localhost:${port}`,
-          ],
-          notes: [
-            'Some additional notes to be displayed upon successful compilation',
-          ],
+          messages: [`You application is running here http://localhost:${port}`],
+          notes: ['Some additional notes to be displayed upon successful compilation'],
         },
       }),
       new DashboardPlugin(),
