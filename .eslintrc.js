@@ -1,45 +1,47 @@
 module.exports = {
+  parserOptions: {
+    project: './tsconfig.json',
+    createDefaultProgram: true,
+  },
   extends: [
     'airbnb',
-    'prettier',
+    'airbnb-typescript',
     'plugin:react/recommended',
     'plugin:import/typescript',
-    "plugin:prettier/recommended",
+    'plugin:prettier/recommended',
+    'prettier',
     'prettier/react',
+    'prettier/@typescript-eslint',
   ],
   env: {
     browser: true,
     node: true,
     es6: true,
-  },
-  settings: {
-    react: {
-      version: '16.12',
-    },
+    jest: true,
   },
   parser: '@typescript-eslint/parser',
-  plugins: ['react', 'babel', 'jest','prettier', "react-hooks",'@typescript-eslint'],
+  plugins: ['react', 'jest', 'prettier', 'react-hooks', '@typescript-eslint'],
   overrides: [
     {
       files: ['*.ts', '*.tsx'],
       rules: {
         '@typescript-eslint/no-unused-vars': [2, { args: 'none' }],
+        'no-unused-expressions': 'off',
+        '@typescript-eslint/no-unused-expressions': 2,
       },
     },
   ],
   rules: {
-    "prettier/prettier": "error",
-    "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn",
+    'prettier/prettier': 'error',
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
     camelcase: 0,
+    'import/order': 'warn',
     'react/jsx-one-expression-per-line': 0,
     'react/prop-types': 0,
     'react/forbid-prop-types': 0,
     'react/jsx-indent': 0,
-    'react/jsx-wrap-multilines': [
-      'error',
-      { declaration: false, assignment: false },
-    ],
+    'react/jsx-wrap-multilines': ['error', { declaration: false, assignment: false }],
     'jsx-a11y/no-static-element-interactions': 0,
     'jsx-a11y/anchor-has-content': 0,
     'jsx-a11y/click-events-have-key-events': 0,
@@ -71,4 +73,4 @@ module.exports = {
     'global-require': 0,
     'import/extensions': 0,
   },
-};
+}

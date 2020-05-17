@@ -1,10 +1,5 @@
 import qs from 'qs'
-import axios, {
-  AxiosRequestConfig,
-  AxiosResponse,
-  AxiosError,
-  AxiosInstance,
-} from 'axios'
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosError, AxiosInstance } from 'axios'
 import { message } from 'antd'
 import NProgress from 'nprogress'
 import { HTTP_RESPONSE_MESSAGES } from '../../../config/http'

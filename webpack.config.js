@@ -82,7 +82,7 @@ module.exports = () => {
           test: /\.(j|t)s[x]?$/,
           use: [
             {
-              loader: 'babel-loader',
+              loader: 'awesome-typescript-loader',
             },
           ],
           exclude: '/node_modules/',

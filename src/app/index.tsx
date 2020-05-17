@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
-import { Divider, Button } from 'antd'
 import './index.less'
+import { Divider, Button } from 'antd'
 
 const Home = () => {
   const goGithub = useCallback(() => {
