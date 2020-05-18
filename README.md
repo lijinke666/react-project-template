@@ -4,7 +4,7 @@
 
 react+hooks+ES6+webpack@4.X+babel@7.x 项目模板,支持按需加载 <br/>
 
-推荐直接使用脚手架直接生成 [https://github.com/lijinke666/dawdler](https://github.com/lijinke666/dawdler) <br/>
+推荐直接使用脚手架生成 [dawdler](https://github.com/lijinke666/dawdler) <br/>
 
 如需使用 TypeScript, 请使用 `typescript` 分支
 
