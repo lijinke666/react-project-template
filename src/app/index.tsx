@@ -1,12 +1,12 @@
-import React, { useCallback } from 'react'
-import { Divider, Button } from 'antd'
+import React, { useCallback } from 'react';
+import { Divider, Button } from 'antd';
 
-import './index.less'
+import './index.less';
 
 const Home = () => {
   const goGithub = useCallback(() => {
-    location.href = 'https://github.com/lijinke666/dawdler.git'
-  }, [])
+    window.location.href = 'https://github.com/lijinke666/dawdler.git';
+  }, []);
   return (
     <>
       <h2>
@@ -17,7 +17,7 @@ const Home = () => {
         Github
       </Button>
       <Divider>
-        {name} By:{' '}
+        dawdler By:{' '}
         <a
           href="https://github.com/lijinke666/dawdler.git"
           rel="noopener noreferrer"
@@ -27,7 +27,7 @@ const Home = () => {
         </a>
       </Divider>
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
