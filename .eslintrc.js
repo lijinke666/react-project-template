@@ -1,7 +1,6 @@
 module.exports = {
-  extends: [require.resolve('@umijs/fabric/dist/eslint'), 'plugin:react-hooks/recommended'],
+  extends: [require.resolve('@umijs/fabric/dist/eslint')],
   rules: {
-    // your rules
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     semi: ['warn', 'never'],

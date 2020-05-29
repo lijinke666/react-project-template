@@ -3,7 +3,7 @@
     "target": "es5",
     "moduleResolution": "node",
     "jsx": "react",
-    "declaration": false,
+    "module": "ESNext",
     "pretty": true,
     "sourceMap": true,
     "strict": true,
@@ -18,7 +18,9 @@
     "allowJs": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "lib": ["es2018", "dom"]
+    "baseUrl": ".",
+    "skipLibCheck": true,
+    "importHelpers": true
   },
   "include": ["./src"],
   "exclude": ["node_modules", ".history"]
