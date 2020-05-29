@@ -1,5 +1,7 @@
 import React, { useCallback } from 'react'
-import { Divider, Button } from 'antd'
+import { Button } from 'antd'
+import { GithubOutlined } from '@ant-design/icons'
+
 import './index.less'
 
 const Home = () => {
@@ -8,25 +10,15 @@ const Home = () => {
   }, [])
 
   return (
-    <>
+    <div className="home">
       <h2>
-        Hey ! Thank you for using {'  '}
+        Hey ! Thank you for using
         <strong className="name">dawdler</strong>
       </h2>
-      <Button icon="github" type="primary" onClick={onGoToGithub}>
+      <Button icon={<GithubOutlined />} type="primary" onClick={onGoToGithub}>
         Github
       </Button>
-      <Divider>
-        dawdler By:{' '}
-        <a
-          href="https://github.com/lijinke666/dawdler.git"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          dawdler
-        </a>
-      </Divider>
-    </>
+    </div>
   )
 }
 

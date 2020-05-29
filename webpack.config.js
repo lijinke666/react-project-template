@@ -10,7 +10,6 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const WebpackNotifierPlugin = require('webpack-notifier')
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin')
 const tsImportPluginFactory = require('ts-import-plugin')
 const EsBuildWebpackPlugin = require('esbuild-webpack-plugin').default
 
@@ -21,6 +20,7 @@ const PORT = process.env.PORT || 3000
 const HOST = process.env.HOST || '0.0.0.0'
 
 const styleLoaders = [
+  'style-loader',
   {
     loader: 'css-loader',
     options: {
@@ -84,7 +84,7 @@ module.exports = () => {
     module: {
       rules: [
         {
-          test: /\.tsx?$/,
+          test: /\.(t|j)sx?$/,
           use: {
             loader: 'ts-loader',
             options: {
@@ -125,8 +125,7 @@ module.exports = () => {
 
     resolve: {
       enforceExtension: false,
-      extensions: ['.ts', '.tsx', '.js', '.jsx', '.json', '.less', '.css'],
-      modules: [path.resolve('src'), path.resolve('.'), path.resolve('src/shared'), 'node_modules'],
+      extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
       alias: {
         'react-dom': '@hot-loader/react-dom',
       },
@@ -173,12 +172,6 @@ module.exports = () => {
     options.plugins = options.plugins.concat([
       new webpack.HotModuleReplacementPlugin(),
       new WebpackNotifierPlugin({ title: name }),
-      new FriendlyErrorsWebpackPlugin({
-        compilationSuccessInfo: {
-          messages: [`You application is running here http://${HOST}:${PORT}`],
-          notes: ['Some additional notes to be displayed upon successful compilation'],
-        },
-      }),
     ])
   } else {
     options.plugins = options.plugins.concat([
