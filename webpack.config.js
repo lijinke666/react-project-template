@@ -19,8 +19,7 @@ const isDev = process.env.NODE_ENV === 'development'
 const PORT = process.env.PORT || 3000
 const HOST = process.env.HOST || '0.0.0.0'
 
-const styleLoaders = [
-  'style-loader',
+const cssLoaders = [
   {
     loader: 'css-loader',
     options: {
@@ -105,8 +104,12 @@ module.exports = () => {
           },
         },
         {
+          test: /\.css$/,
+          use: ['style-loader', ...cssLoaders],
+        },
+        {
           test: /\.(le|c)ss$/,
-          use: isDev ? styleLoaders : [MiniCssExtractPlugin.loader, ...styleLoaders],
+          use: isDev ? cssLoaders : [MiniCssExtractPlugin.loader, ...cssLoaders],
         },
         {
           test: /\.(jpe?g|png|gif|cur|ico|eot|ttf|svg|woff2?)$/,
