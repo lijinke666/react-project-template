@@ -1,4 +1,4 @@
-import 'normalize.css'
+// import 'normalize.css'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { ConfigProvider } from 'antd'

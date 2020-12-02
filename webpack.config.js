@@ -28,13 +28,15 @@ const cssLoaders = [
   },
   {
     loader: 'postcss-loader',
-    options: { javascriptEnabled: true, sourceMap: isDev },
+    options: { postcssOptions: { javascriptEnabled: true }, sourceMap: isDev },
   },
   {
     loader: 'less-loader',
     options: {
+      lessOptions: {
+        javascriptEnabled: true
+      },
       sourceMap: isDev,
-      javascriptEnabled: true,
     },
   },
 ]
@@ -42,7 +44,7 @@ const cssLoaders = [
 module.exports = () => {
   const options = {
     mode: process.env.NODE_ENV || 'production',
-    devtool: isDev ? 'cheap-module-eval-source-map' : false,
+    devtool: isDev ? 'eval-cheap-module-source-map' : false,
     devServer: {
       stats: {
         cached: true,
@@ -139,7 +141,6 @@ module.exports = () => {
       ? {}
       : {
           concatenateModules: true,
-          noEmitOnErrors: true,
           splitChunks: {
             chunks: 'all',
             maxInitialRequests: Infinity,
@@ -178,12 +179,10 @@ module.exports = () => {
     ])
   } else {
     options.plugins = options.plugins.concat([
-      new webpack.HashedModuleIdsPlugin(),
       new MiniCssExtractPlugin({
         filename: '[name].[hash].css',
         chunkFilename: '[name].[hash].css',
       }),
-      new webpack.NamedModulesPlugin(),
       new webpack.LoaderOptionsPlugin({
         minimize: true,
       }),
